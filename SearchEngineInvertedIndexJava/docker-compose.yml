@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  crawler:
+    build:
+      context: ./crawler  # Ścieżka do katalogu crawler
+      dockerfile: Dockerfile  # Nazwa pliku Dockerfile
+    container_name: crawler_container
+    # Crawler nie nasłuchuje na porcie, więc nie dodajemy sekcji ports
+
+  indexer:
+    build:
+      context: ./indexer  # Ścieżka do katalogu indexer
+      dockerfile: Dockerfile
+    container_name: indexer_container
+    # Indexer nie nasłuchuje na porcie, więc nie dodajemy sekcji ports
+
+  queryengine:
+    build:
+      context: ./queryengine  # Ścieżka do katalogu queryengine
+      dockerfile: Dockerfile
+    container_name: queryengine_container
+    ports:
+      - "8080:8080"  # Mapowanie portów dla QueryEngine
+
+  ui:
+    build:
+      context: ./ui  # Ścieżka do katalogu ui
+      dockerfile: Dockerfile
+    container_name: ui_container
+    ports:
+      - "3000:80"  # Mapowanie portów dla UI
+    environment:
+      - REACT_APP_API_URL=http://queryengine:8080  # Ustawienie zmiennej środowiskowej do API QueryEngine
