@@ -37,6 +37,7 @@ public class DocumentController {
             System.out.println("Successfully saved document with ID: " + bookId);
         } catch (Exception e) {
             System.err.println("Error processing document: " + e.getMessage());
+            e.printStackTrace(); // Dodatkowe informacje o błędzie
         }
     }
 

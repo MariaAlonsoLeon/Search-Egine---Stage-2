@@ -10,6 +10,9 @@ public class GutenbergDocumentDownloader implements DocumentDownloader {
     @Override
     public Document downloadDocument(int bookId) throws IOException {
         String bookUrl = URL_PROJECT_GUTENBERG.replace("{id}", String.valueOf(bookId));
-        return Jsoup.connect(bookUrl).get();
-    }
+        System.out.println("Attempting to download document from: " + bookUrl);
+        return Jsoup.connect(bookUrl)
+                .userAgent("Mozilla/5.0")
+                .timeout(10000)
+                .get();    }
 }

@@ -8,7 +8,7 @@ public class Main {
     private static final Integer NUMBER_BOOKS = 5;
 
     public static void main(String[] args) {
-        System.out.println("Crawler is starting...");
+        System.out.println("Crawler is starting 123...");
 
         DocumentDownloader downloader = new GutenbergDocumentDownloader();
         DocumentStore documentStore = new FileDocumentStore();

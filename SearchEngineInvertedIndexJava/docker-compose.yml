@@ -1,34 +1,52 @@
-version: '3.3'
+version: '3.7'
 
 services:
   crawler:
     build:
-      context: ./crawler  # Ścieżka do katalogu crawler
-      dockerfile: Dockerfile  # Nazwa pliku Dockerfile
+      context: ./crawler
+      dockerfile: Dockerfile
     container_name: crawler_container
-    # Crawler nie nasłuchuje na porcie, więc nie dodajemy sekcji ports
+    volumes:
+      - ./datalake_document_repository:/app/datalake_document_repository  # Zapis dokumentów
+    networks:
+      - app-network
 
   indexer:
     build:
-      context: ./indexer  # Ścieżka do katalogu indexer
+      context: ./indexer
       dockerfile: Dockerfile
     container_name: indexer_container
-    # Indexer nie nasłuchuje na porcie, więc nie dodajemy sekcji ports
+    volumes:
+      - ./datalake_document_repository:/app/datalake_document_repository  # Odczyt dokumentów
+      - ./datalake_inverted_index:/app/datalake_inverted_index  # Zapis indeksów
+    networks:
+      - app-network
 
   queryengine:
     build:
-      context: ./queryengine  # Ścieżka do katalogu queryengine
+      context: ./queryengine
       dockerfile: Dockerfile
     container_name: queryengine_container
     ports:
-      - "8080:8080"  # Mapowanie portów dla QueryEngine
+      - "8080:8080"
+    volumes:
+      - ./datalake_document_repository:/app/datalake_document_repository  # Odczyt dokumentów
+      - ./datalake_inverted_index:/app/datalake_inverted_index  # Odczyt indeksów
+    networks:
+      - app-network
 
   ui:
     build:
-      context: ./ui  # Ścieżka do katalogu ui
+      context: ./ui
       dockerfile: Dockerfile
     container_name: ui_container
     ports:
-      - "3000:80"  # Mapowanie portów dla UI
+      - "3000:80"
     environment:
-      - REACT_APP_API_URL=http://queryengine:8080  # Ustawienie zmiennej środowiskowej do API QueryEngine
+      - REACT_APP_API_URL=http://queryengine:8080
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
