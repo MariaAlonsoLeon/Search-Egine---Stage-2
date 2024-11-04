@@ -24,6 +24,11 @@
             <version>3.12.10</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.neo4j.driver</groupId>
+            <artifactId>neo4j-java-driver</artifactId>
+            <version>5.5.0</version> <!-- Ensure this matches your setup -->
+        </dependency>
     </dependencies>
 
     <build>

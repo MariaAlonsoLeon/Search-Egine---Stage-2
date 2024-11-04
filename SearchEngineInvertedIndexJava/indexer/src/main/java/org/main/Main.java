@@ -11,10 +11,12 @@ import java.util.Map;
 
 import org.main.inverted_index.StoreBinaryFile_II;
 import org.main.inverted_index.StoreMongoDB_II;
+import org.main.inverted_index.StoreNeo4j_II;
 import org.main.metadata.StoreBinaryFile_MD;
 import org.main.metadata.StoreMongoDB_MD;
 import org.main.metadata.ProcessMetadata;
 import org.main.inverted_index.ProcessInvertedIndex;
+import org.main.metadata.StoreNeo4j_MD;
 
 public class Main {
     private static final String DOCUMENT_REPOSITORY = "datalake_document_repository/books";
@@ -22,33 +24,19 @@ public class Main {
     private static final ProcessMetadata process_metadata = new ProcessMetadata();
 
     private static final ProcessInvertedIndex process_inverted_index = new ProcessInvertedIndex();
-    private static final StoreMongoDB_II store_mongoDB_II = new StoreMongoDB_II();
-
-    private static final StoreMongoDB_MD store_mongoDB_MD = new StoreMongoDB_MD();
     private static final StoreBinaryFile_II storeBinaryFileII = new StoreBinaryFile_II();
+    private static final StoreMongoDB_II store_mongoDB_II = new StoreMongoDB_II();
+    private static final StoreNeo4j_II storeNeo4jII = new StoreNeo4j_II();
     private static final StoreBinaryFile_MD storeBinaryFileMD = new StoreBinaryFile_MD();
+    private static final StoreMongoDB_MD store_mongoDB_MD = new StoreMongoDB_MD();
+    private static final StoreNeo4j_MD storeNeo4jMD = new StoreNeo4j_MD();
 
     public static void main(String[] args) {
 
         LocalDate currentDate = LocalDate.now();
         String folderPath = String.format("%s/%s", DOCUMENT_REPOSITORY, currentDate);
 
-        // Start the listener for the specified folder
         listener(folderPath);
-
-        /*Map<String, String> book = new HashMap<>();
-        book.put("libro", "book main book dict space\n" +
-                "plot gamma book space\n" +
-                "Author: cervantes\n" +
-                "Release date: 01010101\n" +
-                "pepe Author: miguel\n" +
-                "Language: English\n" +
-                "pepito\n");
-        ProcessMetadata metadata = new ProcessMetadata();
-        ProcessInvertedIndex invertedIndex = new ProcessInvertedIndex();
-        System.out.println(metadata.createMetadata(book));
-        System.out.println(invertedIndex.createInvertedIndex(book));*/
-
     }
 
     private static Map<String, String> readBook(String fileName) {
@@ -118,12 +106,12 @@ public class Main {
                     /*
                     store_mongoDB_II.storeInvertedIndex(inverted_index);
                     storeBinaryFileII.storeInvertedIndex(inverted_index);
+                    storeNeo4jII.storeInvertedIndex(inverted_index);
 
                     store_mongoDB_MD.storeMetadata(metadata);
                     storeBinaryFileMD.storeMetadata(metadata);
-                    */
-
-
+                    storeNeo4jMD.storeMetadata(metadata);
+                     */
                 }
 
                 // Reset the key

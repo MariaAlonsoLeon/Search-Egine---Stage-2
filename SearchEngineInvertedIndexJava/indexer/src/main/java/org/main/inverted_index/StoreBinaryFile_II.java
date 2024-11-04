@@ -20,5 +20,4 @@ public class StoreBinaryFile_II implements StoreInterface_II{
             System.err.println("Error storing inverted index to binary file: " + e.getMessage());
         }
     }
-
 }
