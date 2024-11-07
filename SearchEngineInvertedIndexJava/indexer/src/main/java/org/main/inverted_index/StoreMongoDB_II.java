@@ -4,6 +4,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +22,12 @@ public class StoreMongoDB_II implements StoreInterface_II{
 
             Document doc = new Document("documentName", bookName);
 
+            Map<String, Object> indexMap = new HashMap<>();
             for (Map.Entry<String, List<Integer>> wordEntry : invertedIndexBody.entrySet()) {
-                doc.append(wordEntry.getKey(), wordEntry.getValue());
+                indexMap.put(wordEntry.getKey(), wordEntry.getValue());
             }
+
+            doc.append("invertedIndex", indexMap);
 
             collection.insertOne(doc);
         }

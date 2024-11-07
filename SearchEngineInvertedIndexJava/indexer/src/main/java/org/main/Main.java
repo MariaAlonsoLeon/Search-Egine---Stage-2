@@ -42,14 +42,22 @@ public class Main {
     private static Map<String, String> readBook(String fileName) {
         Map<String, String> result = new HashMap<>();
         StringBuilder content = new StringBuilder();
-        String line;
+        //String line;
+
+        File file = new File(fileName);
+        if (!file.exists() || !file.canRead()) {
+            System.out.println("File does not exist or cannot be read: " + fileName);
+            result.put("error", "File does not exist or cannot be read.");
+            return result;
+        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
             while ((line = br.readLine()) != null) {
                 content.append(line).append("\n");
             }
-            result.put("fileName", fileName);
-            result.put("content", content.toString());
+
+            result.put(fileName, content.toString());
         } catch (IOException e) {
             e.printStackTrace();
             result.put("error", "Error reading file: " + e.getMessage());
@@ -99,19 +107,19 @@ public class Main {
 
                     String filePath = folderPath + "/" + fileName;
                     System.out.println("New file detected: " + filePath);
+                    Thread.sleep(500);
                     Map<String, String> bookContent = readBook(filePath);
                     Map<String, Map<String, String>> metadata = process_metadata.createMetadata(bookContent);
                     Map<String, Map<String, List<Integer>>> inverted_index = process_inverted_index.createInvertedIndex(bookContent);
 
-                    /*
                     store_mongoDB_II.storeInvertedIndex(inverted_index);
-                    storeBinaryFileII.storeInvertedIndex(inverted_index);
-                    storeNeo4jII.storeInvertedIndex(inverted_index);
+                    //storeBinaryFileII.storeInvertedIndex(inverted_index);
+                    //storeNeo4jII.storeInvertedIndex(inverted_index);
 
                     store_mongoDB_MD.storeMetadata(metadata);
-                    storeBinaryFileMD.storeMetadata(metadata);
-                    storeNeo4jMD.storeMetadata(metadata);
-                     */
+                    //storeBinaryFileMD.storeMetadata(metadata);
+                    //storeNeo4jMD.storeMetadata(metadata);
+
                 }
 
                 // Reset the key
@@ -120,8 +128,11 @@ public class Main {
                     break; // Exit loop if the key is no longer valid
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
