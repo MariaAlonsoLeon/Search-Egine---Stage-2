@@ -1,10 +1,7 @@
 package org.main.inverted_index;
 
 import org.main.inverted_index.StoreInterface_II;
-import org.neo4j.driver.AuthTokens;
-import org.neo4j.driver.Driver;
-import org.neo4j.driver.GraphDatabase;
-import org.neo4j.driver.Session;
+import org.neo4j.driver.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,16 +15,17 @@ public class StoreNeo4j_II implements StoreInterface_II {
 
     @Override
     public void storeInvertedIndex(Map<String, Map<String, List<Integer>>> invertedIndex) {
-        try (Session session = driver.session()) {
+        try (Session session = driver.session(SessionConfig.forDatabase("invertedindex"))) {
             session.writeTransaction(tx -> {
                 for (Map.Entry<String, Map<String, List<Integer>>> wordEntry : invertedIndex.entrySet()) {
-                    String word = wordEntry.getKey();
+                    String book = wordEntry.getKey();
                     Map<String, List<Integer>> docs = wordEntry.getValue();
 
                     for (Map.Entry<String, List<Integer>> docEntry : docs.entrySet()) {
-                        String title = docEntry.getKey();
+                        String word = docEntry.getKey();
                         List<Integer> positions = docEntry.getValue();
                         int count = positions.size(); // Count of occurrences
+                        System.out.println(positions);
 
                         tx.run(
                                 "MERGE (d:Document {title: $title}) " +
@@ -36,7 +34,7 @@ public class StoreNeo4j_II implements StoreInterface_II {
                                         "ON CREATE SET r.positions = $positions, w.count = $count " +
                                         "ON MATCH SET r.positions = COALESCE(r.positions, []) + $positions, w.count = w.count",
                                 Map.of(
-                                        "title", title,
+                                        "title", book,
                                         "word", word,
                                         "positions", positions,
                                         "count", count

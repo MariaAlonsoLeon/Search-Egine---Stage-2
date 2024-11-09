@@ -9,11 +9,9 @@ public class ProcessInvertedIndex {
     public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book) {
         Map<String, Map<String, List<Integer>>> documentInvertedIndex = new HashMap<>();
 
-        System.out.println(book);
 
         for (Map.Entry<String, String> entry : book.entrySet()) {
             String documentName = entry.getKey();
-            System.out.println(documentName);
             String content = entry.getValue();
             String[] words = content.split("\\W+");
 

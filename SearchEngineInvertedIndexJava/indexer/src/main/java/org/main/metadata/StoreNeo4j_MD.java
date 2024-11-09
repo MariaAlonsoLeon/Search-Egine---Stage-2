@@ -1,9 +1,6 @@
 package org.main.metadata;
 
-import org.neo4j.driver.AuthTokens;
-import org.neo4j.driver.Driver;
-import org.neo4j.driver.GraphDatabase;
-import org.neo4j.driver.Session;
+import org.neo4j.driver.*;
 
 import java.util.Map;
 
@@ -15,7 +12,7 @@ public class StoreNeo4j_MD implements StoreInterface_MD {
 
     @Override
     public void storeMetadata(Map<String, Map<String, String>> metadata) {
-        try (Session session = driver.session()) {
+        try (Session session = driver.session(SessionConfig.forDatabase("metadata"))) {
             for (Map.Entry<String, Map<String, String>> entry : metadata.entrySet()) {
                 String fileName = entry.getKey();
                 Map<String, String> details = entry.getValue();
