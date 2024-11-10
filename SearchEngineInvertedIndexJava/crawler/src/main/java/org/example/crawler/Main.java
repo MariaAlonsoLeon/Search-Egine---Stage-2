@@ -1,19 +1,28 @@
 package org.example.crawler;
 
-public class Main {
-    // Crawler downloads specified number of books from Gutenberg to Document Repository
-    // Then finishes working
+import java.util.concurrent.CountDownLatch;
 
-    // the number of books we want to download:
-    private static final Integer NUMBER_BOOKS = 5;
+public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Crawler is starting 123...");
+        GutenbergDocumentDownloader downloader = new GutenbergDocumentDownloader();
 
-        DocumentDownloader downloader = new GutenbergDocumentDownloader();
-        DocumentStore documentStore = new FileDocumentStore();
-        DocumentController controller = new DocumentController(downloader, documentStore, NUMBER_BOOKS);
+        int nDocuments = 5;
+
+        FileDocumentStore documentStore = new FileDocumentStore();
+
+        DocumentController controller = new DocumentController(downloader, documentStore, nDocuments);
 
         controller.startCrawler();
+
+        CountDownLatch latch = new CountDownLatch(1);
+        System.out.println("Document Crawler started. Press Ctrl+C to stop.");
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            System.out.println("Process interrupted.");
+            Thread.currentThread().interrupt();
+        }
     }
 }
