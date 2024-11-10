@@ -27,7 +27,7 @@ public class GutenbergDocumentDownloader implements DocumentDownloader {
 
             if (response.statusCode() == 200) {
                 String documentText = response.body();
-                return Jsoup.parse(documentText);  // Analiza y devuelve el contenido como un objeto Document de Jsoup
+                return Jsoup.parse(documentText); 
             } else {
                 throw new HttpStatusException("Error en la descarga", response.statusCode(), bookUrl);
             }
