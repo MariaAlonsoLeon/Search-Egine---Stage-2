@@ -1,42 +1,85 @@
 package org.example.crawler;
 
-import org.jsoup.nodes.Document;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class FileDocumentStore implements DocumentStore {
-    private static final String DOCUMENT_REPOSITORY_PATH = "datalake_document_repository/books/";
+    private static final String DOCUMENT_REPOSITORY_PATH = "datalake";
 
     @Override
-    public void saveDocument(Document document, int bookId) throws IOException {
-        System.out.println("Saving document with ID: " + bookId);
-        String folderPath = generateFolderPath();
-        createFolder(folderPath);
-        createFile(document, folderPath, bookId);
-    }
-
-    private void createFile(Document document, String folderPath, int bookId) throws IOException {
-        String filePath = folderPath + bookId + ".txt";
-        System.out.println("Creating file: " + filePath);
-        try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write(document.text());
+    public void saveDocument(String document, String composedId) {
+        if (document == null) {
+            throw new IllegalArgumentException("Document cannot be null");
         }
-        System.out.println("File created successfully: " + filePath);
+
+        LocalDateTime documentDate = extractDateFromId(composedId);
+        createFolderIfNotExists(documentDate);
+        createFile(document, documentDate);
     }
 
-    private void createFolder(String folderPath) throws IOException {
+    private void createFile(String document, LocalDateTime documentDate) {
+        String folderPath = generateFolderPath(documentDate);
+        int bookNumber = getNextBookNumber(folderPath);
+        String fileName = "book_" + bookNumber + ".txt";
+        String filePath = folderPath + File.separator + fileName;
+
+        try (FileWriter writer = new FileWriter(filePath, StandardCharsets.UTF_8)) {
+            writer.write(document);
+            System.out.println("Document saved to: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Error writing file: " + e.getMessage());
+            throw new RuntimeException("File writing failed", e);
+        }
+    }
+
+    private void createFolderIfNotExists(LocalDateTime documentDate) {
+        String folderPath = generateFolderPath(documentDate);
         File folder = new File(folderPath);
         if (!folder.exists()) {
-            folder.mkdirs();
+            if (folder.mkdirs()) {
+                System.out.println("Directory created: " + folderPath);
+            } else {
+                System.err.println("Failed to create directory: " + folderPath);
+                throw new RuntimeException("Directory creation failed");
+            }
         }
     }
 
-    private String generateFolderPath() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String currentDate = simpleDateFormat.format(new Date());
-        return DOCUMENT_REPOSITORY_PATH + currentDate + "/";
+    private String generateFolderPath(LocalDateTime documentDate) {
+        String folderDate = documentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return DOCUMENT_REPOSITORY_PATH + File.separator + folderDate;
+    }
+
+    private LocalDateTime extractDateFromId(String composedId) {
+        String dateStr = composedId.split("/")[0];
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        return LocalDateTime.parse(dateStr, formatter);
+    }
+
+    private int getNextBookNumber(String folderPath) {
+        File folder = new File(folderPath);
+        if (!folder.exists() || !folder.isDirectory()) {
+            return 1;
+        }
+
+        File[] existingBooks = folder.listFiles((dir, name) -> name.startsWith("book_") && name.endsWith(".txt"));
+        if (existingBooks == null || existingBooks.length == 0) {
+            return 1;
+        }
+
+        return Arrays.stream(existingBooks)
+                .map(file -> {
+                    String fileName = file.getName();
+                    return Integer.parseInt(fileName.substring(5, fileName.lastIndexOf('.')));
+                })
+                .max(Comparator.naturalOrder())
+                .orElse(0) + 1;
     }
 }
+
