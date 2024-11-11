@@ -5,25 +5,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.main.inverted_index.StoreBinaryFile_II;
-import org.main.inverted_index.StoreMongoDB_II;
-import org.main.inverted_index.StoreNeo4j_II;
-import org.main.metadata.StoreBinaryFile_MD;
-import org.main.metadata.StoreMongoDB_MD;
-import org.main.metadata.ProcessMetadata;
-import org.main.inverted_index.ProcessInvertedIndex;
-import org.main.metadata.StoreNeo4j_MD;
+import org.main.inverted_index.*;
+import org.main.metadata.*;
 
 public class Main {
-    private static final String DOCUMENT_REPOSITORY = "datalake_document_repository/books";
+    private static final String DOCUMENT_REPOSITORY = "datalake/";
     private static final String INVERTED_INDEX_REPOSITORY = "datalake_inverted_index";
     private static final ProcessMetadata process_metadata = new ProcessMetadata();
-
     private static final ProcessInvertedIndex process_inverted_index = new ProcessInvertedIndex();
+
     private static final StoreBinaryFile_II storeBinaryFileII = new StoreBinaryFile_II();
     private static final StoreMongoDB_II store_mongoDB_II = new StoreMongoDB_II();
     private static final StoreNeo4j_II storeNeo4jII = new StoreNeo4j_II();
@@ -34,9 +29,21 @@ public class Main {
     public static void main(String[] args) {
 
         LocalDate currentDate = LocalDate.now();
-        String folderPath = String.format("%s/%s", DOCUMENT_REPOSITORY, currentDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String formattedDate = currentDate.format(formatter);
+        String folderPath = String.format("%s/%s", DOCUMENT_REPOSITORY, formattedDate);
 
-        listener(folderPath);
+        listener(folderPath, storeBinaryFileII, storeBinaryFileMD);
+        //Map<String, String> book1 = readBook("datalake/20241111/book_3.txt");
+        //testStorage(book1);
+    }
+
+    private static void testStorage(Map<String, String> book) {
+        Map<String, Map<String, String>> metadata = process_metadata.createMetadata(book);
+        Map<String, Map<String, List<Integer>>> inverted_index = process_inverted_index.createInvertedIndex(book);
+
+        storeBinaryFileII.storeInvertedIndex(inverted_index);
+        //storeBinaryFileMD.storeMetadata(metadata);
     }
 
     private static Map<String, String> readBook(String fileName) {
@@ -66,7 +73,7 @@ public class Main {
         return result;
     }
 
-    private static void listener(String folderPath) {
+    private static void listener(String folderPath, StoreInterface_II invertedIndexInterface, StoreInterface_MD metadataInterface) {
         // Waits until the folder is created
         while (!new File(folderPath).exists()) {
             System.out.println("Folder " + folderPath + " doesn't exist yet. Waiting for it...");
@@ -112,14 +119,8 @@ public class Main {
                     Map<String, Map<String, String>> metadata = process_metadata.createMetadata(bookContent);
                     Map<String, Map<String, List<Integer>>> inverted_index = process_inverted_index.createInvertedIndex(bookContent);
 
-                    store_mongoDB_II.storeInvertedIndex(inverted_index);
-                    //storeBinaryFileII.storeInvertedIndex(inverted_index);
-                    //storeNeo4jII.storeInvertedIndex(inverted_index);
-
-                    store_mongoDB_MD.storeMetadata(metadata);
-                    //storeBinaryFileMD.storeMetadata(metadata);
-                    //storeNeo4jMD.storeMetadata(metadata);
-
+                    invertedIndexInterface.storeInvertedIndex(inverted_index);
+                    metadataInterface.storeMetadata(metadata);
                 }
 
                 // Reset the key
