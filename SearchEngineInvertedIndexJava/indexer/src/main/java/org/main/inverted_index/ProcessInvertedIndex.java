@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ProcessInvertedIndex {
 
-    public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book) {
+    /*public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book) {
         Map<String, Map<String, List<Integer>>> documentInvertedIndex = new HashMap<>();
 
         for (Map.Entry<String, String> entry : book.entrySet()) {
@@ -23,6 +23,28 @@ public class ProcessInvertedIndex {
             documentInvertedIndex.put(documentName, invertedIndex);
         }
         return documentInvertedIndex;
-    }
+    }*/
 
+    public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book) {
+        Map<String, Map<String, List<Integer>>> invertedIndex = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : book.entrySet()) {
+            String documentName = entry.getKey().replaceAll("^.*/|\\.txt$", "");
+            String content = entry.getValue();
+            String[] words = content.split("\\W+");
+
+            for (int i = 0; i < words.length; i++) {
+                String word = words[i].toLowerCase();
+
+                // Retrieve or create the inner map for the word
+                if (!word.isEmpty()) {
+                    invertedIndex
+                            .computeIfAbsent(word, k -> new HashMap<>())
+                            .computeIfAbsent(documentName, k -> new ArrayList<>())
+                            .add(i);
+                }
+            }
+        }
+        return invertedIndex;
+    }
 }

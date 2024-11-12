@@ -18,7 +18,7 @@ public class Main {
     private static final String INVERTED_INDEX_REPOSITORY = "datalake_inverted_index";
     private static final ProcessMetadata process_metadata = new ProcessMetadata();
     private static final ProcessInvertedIndex process_inverted_index = new ProcessInvertedIndex();
-
+    private static final StoreText_II storeTextII = new StoreText_II();
     private static final StoreBinaryFile_II storeBinaryFileII = new StoreBinaryFile_II();
     private static final StoreMongoDB_II store_mongoDB_II = new StoreMongoDB_II();
     private static final StoreNeo4j_II storeNeo4jII = new StoreNeo4j_II();
@@ -33,16 +33,16 @@ public class Main {
         String formattedDate = currentDate.format(formatter);
         String folderPath = String.format("%s/%s", DOCUMENT_REPOSITORY, formattedDate);
 
-        listener(folderPath, storeBinaryFileII, storeBinaryFileMD);
-        //Map<String, String> book1 = readBook("datalake/20241111/book_3.txt");
-        //testStorage(book1);
+        //listener(folderPath, storeBinaryFileII, storeBinaryFileMD);
+        Map<String, String> book1 = readBook("datalake/20241111/book_3.txt");
+        testStorage(book1);
     }
 
     private static void testStorage(Map<String, String> book) {
-        Map<String, Map<String, String>> metadata = process_metadata.createMetadata(book);
+        //Map<String, Map<String, String>> metadata = process_metadata.createMetadata(book);
         Map<String, Map<String, List<Integer>>> inverted_index = process_inverted_index.createInvertedIndex(book);
 
-        storeBinaryFileII.storeInvertedIndex(inverted_index);
+        store_mongoDB_II.storeInvertedIndex(inverted_index);
         //storeBinaryFileMD.storeMetadata(metadata);
     }
 

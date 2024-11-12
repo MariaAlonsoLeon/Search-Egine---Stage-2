@@ -18,11 +18,11 @@ public class StoreNeo4j_II implements StoreInterface_II {
         try (Session session = driver.session(SessionConfig.forDatabase("invertedindex"))) {
             session.writeTransaction(tx -> {
                 for (Map.Entry<String, Map<String, List<Integer>>> wordEntry : invertedIndex.entrySet()) {
-                    String book = wordEntry.getKey();
+                    String word = wordEntry.getKey();
                     Map<String, List<Integer>> docs = wordEntry.getValue();
 
                     for (Map.Entry<String, List<Integer>> docEntry : docs.entrySet()) {
-                        String word = docEntry.getKey();
+                        String book = docEntry.getKey();
                         List<Integer> positions = docEntry.getValue();
                         int count = positions.size(); // Count of occurrences
 

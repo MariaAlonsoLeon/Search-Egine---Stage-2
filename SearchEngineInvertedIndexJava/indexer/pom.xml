@@ -40,6 +40,13 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <version>1.35</version> <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
+        </dependency>
+
     </dependencies>
 
     <build>
