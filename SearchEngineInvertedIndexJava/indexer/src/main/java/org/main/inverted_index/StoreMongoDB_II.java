@@ -25,28 +25,6 @@ public class StoreMongoDB_II implements StoreInterface_II {
     public void storeInvertedIndex(Map<String, Map<String, List<Integer>>> invertedIndex) {
         collection = database.getCollection("invertedindex");
         Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
-        for (Map.Entry<String, Map<String, List<Integer>>> documentEntry : invertedIndex.entrySet()) {
-            String bookName = documentEntry.getKey();
-            Map<String, List<Integer>> invertedIndexBody = documentEntry.getValue();
-
-            Document doc = new Document("documentName", bookName);
-
-            Map<String, Object> indexMap = new HashMap<>();
-            for (Map.Entry<String, List<Integer>> wordEntry : invertedIndexBody.entrySet()) {
-                indexMap.put(wordEntry.getKey(), wordEntry.getValue());
-            }
-
-            doc.append("invertedIndex", indexMap);
-            collection.insertOne(doc);
-        }
-
-        //System.out.println("Inverted Index stored in MongoDB.");
-    }*/
-
-    @Override
-    public void storeInvertedIndex(Map<String, Map<String, List<Integer>>> invertedIndex) {
-        collection = database.getCollection("invertedindex");
-        Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
 
         // Loop through the inverted index for each book
         for (Map.Entry<String, Map<String, List<Integer>>> bookEntry : invertedIndex.entrySet()) {
@@ -69,6 +47,35 @@ public class StoreMongoDB_II implements StoreInterface_II {
                 );
             }
         }
+    }*/
+
+    @Override
+    public void storeInvertedIndex(Map<String, Map<String, List<Integer>>> invertedIndex) {
+        collection = database.getCollection("invertedindex");
+        Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
+
+        // Loop through the inverted index for each word
+        for (Map.Entry<String, Map<String, List<Integer>>> wordEntry : invertedIndex.entrySet()) {
+            String word = wordEntry.getKey();  // The word (e.g., "example")
+            Map<String, List<Integer>> books = wordEntry.getValue();  // Each book and positions of this word in the book
+
+            // Loop over each book for the current word
+            for (Map.Entry<String, List<Integer>> bookEntry : books.entrySet()) {
+                String book = bookEntry.getKey();  // The book name (e.g., "book_5")
+                List<Integer> positions = bookEntry.getValue();  // The positions of the word in the current book
+
+                // Construct the update query to add positions for the word in the current book
+                Document update = new Document("$addToSet", new Document("books." + book, new Document("$each", positions)));
+
+                // Update the MongoDB document, adding or appending the positions for this word in the specific book
+                collection.updateOne(
+                        new Document("word", word),  // Filter by word
+                        update,  // Add the book and its positions
+                        new UpdateOptions().upsert(true) // Create the document if it doesn't exist
+                );
+            }
+        }
     }
+
 
 }
