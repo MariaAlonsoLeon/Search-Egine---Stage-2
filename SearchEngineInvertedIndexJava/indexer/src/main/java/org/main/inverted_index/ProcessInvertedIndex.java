@@ -6,30 +6,13 @@ import java.util.Map;
 
 public class ProcessInvertedIndex {
 
-    /*public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book) {
-        Map<String, Map<String, List<Integer>>> documentInvertedIndex = new HashMap<>();
-
-        for (Map.Entry<String, String> entry : book.entrySet()) {
-            String documentName = entry.getKey();
-            String content = entry.getValue();
-            String[] words = content.split("\\W+");
-
-            Map<String, List<Integer>> invertedIndex = new HashMap<>();
-            for (int i = 0; i < words.length; i++) {
-                String word = words[i].toLowerCase();
-                invertedIndex.computeIfAbsent(word, k -> new ArrayList<>()).add(i);
-            }
-
-            documentInvertedIndex.put(documentName, invertedIndex);
-        }
-        return documentInvertedIndex;
-    }*/
-
     public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book) {
         Map<String, Map<String, List<Integer>>> invertedIndex = new HashMap<>();
 
         for (Map.Entry<String, String> entry : book.entrySet()) {
-            String documentName = entry.getKey().replaceAll("^.*/|\\.txt$", "");
+            //String documentName = entry.getKey().replaceAll("^.*/|\\.txt$", "");
+            String documentName = entry.getKey().replaceAll("^datalake/(\\d{8}/book_\\d+)(?:\\.txt)?$", "$1");
+            System.out.println(documentName);
             String content = entry.getValue();
             String[] words = content.split("\\W+");
 
