@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-const Search = ({ searchType, onSearch }) => {
+const Search = ({ searchType }) => {
     const [word1, setWord1] = useState('');
     const [word2, setWord2] = useState('');
     const [pageSize, setPageSize] = useState(10);
     const [pageNumber, setPageNumber] = useState(1);
+    const [dataFormat, setDataFormat] = useState('JSON');
     const [results, setResults] = useState(null);
 
     const handleSubmit = (e) => {
@@ -15,19 +16,19 @@ const Search = ({ searchType, onSearch }) => {
 
         switch (searchType) {
             case 'searchWord':
-                url = `${BASE_URL}/search/${word1}`;
+                url = `${BASE_URL}/search/${dataFormat}/word/${word1}`;
                 break;
             case 'searchOr':
-                url = `${BASE_URL}/search/or/${word1}/${word2}`;
+                url = `${BASE_URL}/search/${dataFormat}/or/${word1}/${word2}`;
                 break;
             case 'searchAnd':
-                url = `${BASE_URL}/search/and/${word1}/${word2}`;
+                url = `${BASE_URL}/search/${dataFormat}/and/${word1}/${word2}`;
                 break;
             case 'searchNot':
-                url = `${BASE_URL}/search/not/${word1}`;
+                url = `${BASE_URL}/search/${dataFormat}/not/${word1}`;
                 break;
             case 'paginate':
-                url = `${BASE_URL}/search/paginate/${word1}/${pageSize}/${pageNumber}`;
+                url = `${BASE_URL}/search/${dataFormat}/paginate/${word1}/${pageSize}/${pageNumber}`;
                 break;
             default:
                 break;
@@ -69,13 +70,34 @@ const Search = ({ searchType, onSearch }) => {
                         </div>
                     </>
                 )}
+
+                <div className="flex flex-col mb-4">
+                    <span className="font-semibold mb-2">Data Format:</span>
+                    <label className="inline-flex items-center mb-1">
+                        <input type="radio" name="format" value="JSON" checked={dataFormat === 'JSON'} onChange={(e) => setDataFormat(e.target.value)} />
+                        <span className="ml-2">JSON</span>
+                    </label>
+                    <label className="inline-flex items-center mb-1">
+                        <input type="radio" name="format" value="BINARY" checked={dataFormat === 'BINARY'} onChange={(e) => setDataFormat(e.target.value)} />
+                        <span className="ml-2">BINARY</span>
+                    </label>
+                    <label className="inline-flex items-center mb-1">
+                        <input type="radio" name="format" value="NEO4J" checked={dataFormat === 'NEO4J'} onChange={(e) => setDataFormat(e.target.value)} />
+                        <span className="ml-2">NEO4J</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                        <input type="radio" name="format" value="MONGODB" checked={dataFormat === 'MONGODB'} onChange={(e) => setDataFormat(e.target.value)} />
+                        <span className="ml-2">MONGODB</span>
+                    </label>
+                </div>
+
                 <button type="submit" className="bg-blue-500 text-white p-2">Search</button>
             </form>
             <div>
                 {results && (
                     <pre className="bg-gray-100 p-4 rounded">
-            {JSON.stringify(results, null, 2)}
-          </pre>
+                        {JSON.stringify(results, null, 2)}
+                    </pre>
                 )}
             </div>
         </div>
