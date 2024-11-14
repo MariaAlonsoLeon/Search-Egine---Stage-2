@@ -11,7 +11,8 @@
     <modules>
         <module>crawler</module>
         <module>indexer</module>
-        <module>queryengine</module>
+        <module>queryengine2</module>
+        <module>test</module>
     </modules>
 
     <properties>
