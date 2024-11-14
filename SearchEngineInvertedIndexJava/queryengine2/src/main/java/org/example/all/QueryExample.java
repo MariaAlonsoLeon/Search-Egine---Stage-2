@@ -1,6 +1,15 @@
 package org.example.all;
 
+import org.example.InvertedIndex.Binary.ContextSearchBinary;
+import org.example.InvertedIndex.Binary.SingleWordSearchBinary;
 import org.example.InvertedIndex.TXT.ContextSearchFile;
+import org.example.Metadata.Binary.SearchByAuthorBinaryFile;
+import org.example.Metadata.Binary.SearchByDateBinaryFile;
+import org.example.Metadata.Binary.SearchByLanguageBinaryFile;
+import org.example.Metadata.TXT.FetchMetadataByBookNameFile;
+import org.example.Metadata.TXT.SearchByAuthorFile;
+import org.example.Metadata.TXT.SearchByDateFile;
+import org.example.Metadata.TXT.SearchByLanguageFile;
 import org.main.inverted_index.StoreInterface_II;
 import org.main.inverted_index.StoreNeo4j_II;
 import org.neo4j.driver.AuthTokens;
@@ -54,8 +63,16 @@ public class QueryExample {
 
         //SingleWordSearchBinary single = new SingleWordSearchBinary("prepare");
         //SingleWordSearchFile single = new SingleWordSearchFile("near", "datamart/inverted_index.txt");
-        ContextSearchFile single = new ContextSearchFile("near", "datamart/inverted_index.txt");
+        //ContextSearchFile single = new ContextSearchFile("English", 3, "datamart/inverted_index.txt", "datalake/");
+        //SearchByAuthorFile single = new SearchByAuthorFile("United States", "datamart/metadata.txt");
+        //SearchByDateFile single = new SearchByDateFile("1971-12-01", "datamart/metadata.txt");
+        //SearchByLanguageFile single = new SearchByLanguageFile("English", "datamart/metadata.txt");
+        //FetchMetadataByBookNameFile single = new FetchMetadataByBookNameFile("20241111/book_2", "datamart/metadata.txt");
+        //SearchByAuthorBinaryFile single = new SearchByAuthorBinaryFile("Thomas Jefferson", "datamart/metadata.dat");
+        //SearchByDateBinaryFile single = new SearchByDateBinaryFile("1971-12-01", "datamart/metadata.dat");
+        //SearchByLanguageBinaryFile single = new SearchByLanguageBinaryFile("English", "datamart/metadata.dat");
+        //SingleWordSearchBinary single = new SingleWordSearchBinary("English", "datamart/inverted_index.dat");
+        ContextSearchBinary single = new ContextSearchBinary("English", 3, "datamart/inverted_index.dat", "datalake");
         System.out.println(single.execute());
-
     }
 }
