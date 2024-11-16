@@ -91,7 +91,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.example.FileIndexer</mainClass>
+                            <mainClass>org.main.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

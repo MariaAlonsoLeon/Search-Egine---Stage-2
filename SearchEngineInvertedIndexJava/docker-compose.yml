@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: crawler_container
     volumes:
-      - ./datalake_document_repository:/app/datalake_document_repository  # Zapis dokumentów
+      - ./datalake:/app/datalake
     networks:
       - app-network
 
@@ -17,21 +17,21 @@ services:
       dockerfile: Dockerfile
     container_name: indexer_container
     volumes:
-      - ./datalake_document_repository:/app/datalake_document_repository  # Odczyt dokumentów
-      - ./datalake_inverted_index:/app/datalake_inverted_index  # Zapis indeksów
+      - ./datalake:/app/datalake
+      - ./datamart:/app/datamart
     networks:
       - app-network
 
-  queryengine:
+  query_engine:
     build:
-      context: ./queryengine
+      context: ./query_engine
       dockerfile: Dockerfile
-    container_name: queryengine_container
+    container_name: query_engine_container
     ports:
       - "8080:8080"
     volumes:
-      - ./datalake_document_repository:/app/datalake_document_repository  # Odczyt dokumentów
-      - ./datalake_inverted_index:/app/datalake_inverted_index  # Odczyt indeksów
+      - ./datalake:/app/datalake
+      - ./datamart:/app/datamart
     networks:
       - app-network
 
@@ -43,7 +43,7 @@ services:
     ports:
       - "3000:80"
     environment:
-      - REACT_APP_API_URL=http://queryengine:8080
+      - REACT_APP_API_URL=http://query_engine:8080
     networks:
       - app-network
 
