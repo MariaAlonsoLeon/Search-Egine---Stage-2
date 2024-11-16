@@ -16,6 +16,7 @@ The system efficiently performs document crawling, indexing, and querying, makin
 - **Document Crawling:** Downloads and stores documents from Project Gutenberg into a datalake for further processing.
 - **Data Indexing:** Processes documents and creates an inverted index, as well as a metadata structure that enables fast term retrieval.
 - **Query Engine:** Allows users to perform searches on the indexed documents, supporting queries based on words and metadata.
+- **UI**: Offers an intuitive interface for querying documents and visualizing results, communicating with the Query Engine via a REST API.
 - **Data Visualization:** Scripts provide visual representations of the data, including word frequency and indexing metrics.
 
 ## Project Structure:
