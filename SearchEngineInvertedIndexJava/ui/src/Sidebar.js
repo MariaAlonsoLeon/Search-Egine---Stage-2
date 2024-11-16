@@ -7,42 +7,56 @@ const Sidebar = ({ onSelect, searchType }) => {
             <ul className="space-y-2">
                 <li>
                     <button
-                        onClick={() => onSelect('searchWord')}
-                        className={`w-full text-left p-2 ${searchType === 'searchWord' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
+                        onClick={() => onSelect('searchSingleWordII')}
+                        className={`w-full text-left p-2 ${searchType === 'searchSingleWordII' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
                     >
                         Search by Word
+                        <span className="ml-2 inline-flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs">II</span>
                     </button>
                 </li>
                 <li>
                     <button
-                        onClick={() => onSelect('searchOr')}
-                        className={`w-full text-left p-2 ${searchType === 'searchOr' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
+                        onClick={() => onSelect('searchWithContextII')}
+                        className={`w-full text-left p-2 ${searchType === 'searchWithContextII' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
                     >
-                        Search OR
+                        Search with Context
+                        <span className="ml-2 inline-flex items-center justify-center w-6 h-6 bg-blue-500 text-white rounded-full text-xs">II</span>
                     </button>
                 </li>
                 <li>
                     <button
-                        onClick={() => onSelect('searchAnd')}
-                        className={`w-full text-left p-2 ${searchType === 'searchAnd' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
+                        onClick={() => onSelect('searchByAuthorMD')}
+                        className={`w-full text-left p-2 ${searchType === 'searchByAuthorMD' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
                     >
-                        Search AND
+                        Search by Author
+                        <span className="ml-2 inline-flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full text-xs">MD</span>
                     </button>
                 </li>
                 <li>
                     <button
-                        onClick={() => onSelect('searchNot')}
-                        className={`w-full text-left p-2 ${searchType === 'searchNot' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
+                        onClick={() => onSelect('searchByDateMD')}
+                        className={`w-full text-left p-2 ${searchType === 'searchByDateMD' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
                     >
-                        Search NOT
+                        Search by Date
+                        <span className="ml-2 inline-flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full text-xs">MD</span>
                     </button>
                 </li>
                 <li>
                     <button
-                        onClick={() => onSelect('paginate')}
-                        className={`w-full text-left p-2 ${searchType === 'paginate' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
+                        onClick={() => onSelect('searchByLanguageMD')}
+                        className={`w-full text-left p-2 ${searchType === 'searchByLanguageMD' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
                     >
-                        Paginated Search
+                        Search by Language
+                        <span className="ml-2 inline-flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full text-xs">MD</span>
+                    </button>
+                </li>
+                <li>
+                    <button
+                        onClick={() => onSelect('fetchMD')}
+                        className={`w-full text-left p-2 ${searchType === 'fetchMD' ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
+                    >
+                        Fetch Book
+                        <span className="ml-2 inline-flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full text-xs">MD</span>
                     </button>
                 </li>
             </ul>

@@ -1,30 +1,36 @@
 package org.example.helper;
 
 import java.util.Collections;
+import java.util.List;
 
 public class BinarySearchHelper implements SearchHelper {
     @Override
-    public String searchWord(String word) {
-        return "{}";
+    public List<String> searchSingleWordII(String word) {
+        return Collections.emptyList();
     }
 
     @Override
-    public String searchAnd(String word1, String word2) {
-        return "{}";
+    public List<String> searchWithContextII(String word, int contextSize, String documentFolderPath) {
+        return Collections.emptyList();
     }
 
     @Override
-    public String searchOr(String word1, String word2) {
-        return "{}";
+    public List<String> searchByAuthorMD(String author) {
+        return Collections.emptyList();
     }
 
     @Override
-    public String searchNot(String word) {
-        return "{}";
+    public List<String> searchByDateMD(String date) {
+        return Collections.emptyList();
     }
 
     @Override
-    public String paginate(String word, int pageSize, int pageNumber) {
-        return "{}";
+    public List<String> searchByLanguageMD(String language) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> fetchMD(String bookName) {
+        return Collections.emptyList();
     }
 }

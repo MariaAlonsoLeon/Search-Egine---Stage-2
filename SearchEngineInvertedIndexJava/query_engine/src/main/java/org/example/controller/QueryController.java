@@ -9,53 +9,60 @@ import static spark.Spark.*;
 public class QueryController {
 
     public void registerRoutes() {
-        // Endpoint do wyszukiwania słowa
-        get("/search/:dataType/word/:word", (req, res) -> {
-            String dataTypeParam = req.params(":dataType");
-            String word = req.params(":word");
-            DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());  // Zamiana na enum
-            SearchHelper helper = SearchHelperFactory.getHelper(dataType);
-            return helper.searchWord(word); // Zwrócenie wyniku
-        });
-
-        // Endpoint do wyszukiwania słowa w AND
-        get("/search/:dataType/and/:word1/:word2", (req, res) -> {
-            String dataTypeParam = req.params(":dataType");
-            String word1 = req.params(":word1");
-            String word2 = req.params(":word2");
-            DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
-            SearchHelper helper = SearchHelperFactory.getHelper(dataType);
-            return helper.searchAnd(word1, word2); // Zwrócenie wyniku
-        });
-
-        // Endpoint do wyszukiwania słowa w OR
-        get("/search/:dataType/or/:word1/:word2", (req, res) -> {
-            String dataTypeParam = req.params(":dataType");
-            String word1 = req.params(":word1");
-            String word2 = req.params(":word2");
-            DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
-            SearchHelper helper = SearchHelperFactory.getHelper(dataType);
-            return helper.searchOr(word1, word2); // Zwrócenie wyniku
-        });
-
-        // Endpoint do wyszukiwania słowa w NOT
-        get("/search/:dataType/not/:word", (req, res) -> {
+        // (searchSingleWordII)
+        get("/search/:dataType/single-word/:word", (req, res) -> {
             String dataTypeParam = req.params(":dataType");
             String word = req.params(":word");
             DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
             SearchHelper helper = SearchHelperFactory.getHelper(dataType);
-            return helper.searchNot(word); // Zwrócenie wyniku
+            return helper.searchSingleWordII(word);
         });
 
-        // Endpoint do paginacji
-        get("/search/:dataType/paginate/:word/:pageSize/:pageNumber", (req, res) -> {
+        // (searchWithContextII)
+        get("/search/:dataType/with-context/:word/:contextSize/:documentFolderPath", (req, res) -> {
             String dataTypeParam = req.params(":dataType");
             String word = req.params(":word");
-            int pageSize = Integer.parseInt(req.params(":pageSize"));
-            int pageNumber = Integer.parseInt(req.params(":pageNumber"));
+            int contextSize = Integer.parseInt(req.params(":contextSize"));
+            String documentFolderPath = req.params(":documentFolderPath");
             DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
             SearchHelper helper = SearchHelperFactory.getHelper(dataType);
-            return helper.paginate(word, pageSize, pageNumber); // Zwrócenie wyniku
+            return helper.searchWithContextII(word, contextSize, documentFolderPath);
+        });
+
+        // (searchByAuthorMD)
+        get("/search/:dataType/author/:author", (req, res) -> {
+            String dataTypeParam = req.params(":dataType");
+            String author = req.params(":author");
+            DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
+            SearchHelper helper = SearchHelperFactory.getHelper(dataType);
+            return helper.searchByAuthorMD(author);
+        });
+
+        // (searchByDateMD)
+        get("/search/:dataType/date/:date", (req, res) -> {
+            String dataTypeParam = req.params(":dataType");
+            String date = req.params(":date");
+            DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
+            SearchHelper helper = SearchHelperFactory.getHelper(dataType);
+            return helper.searchByDateMD(date);
+        });
+
+        // (searchByLanguageMD)
+        get("/search/:dataType/language/:language", (req, res) -> {
+            String dataTypeParam = req.params(":dataType");
+            String language = req.params(":language");
+            DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
+            SearchHelper helper = SearchHelperFactory.getHelper(dataType);
+            return helper.searchByLanguageMD(language);
+        });
+
+        // (fetchMD)
+        get("/search/:dataType/book/:bookName", (req, res) -> {
+            String dataTypeParam = req.params(":dataType");
+            String bookName = req.params(":bookName");
+            DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
+            SearchHelper helper = SearchHelperFactory.getHelper(dataType);
+            return helper.fetchMD(bookName);
         });
     }
 }
