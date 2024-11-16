@@ -57,7 +57,6 @@
 
     <build>
         <plugins>
-            <!-- Plugin do kompilacji kodu -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -68,7 +67,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Plugin do tworzenia fat JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

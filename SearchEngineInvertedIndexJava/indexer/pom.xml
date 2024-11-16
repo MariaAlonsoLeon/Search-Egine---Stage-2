@@ -16,7 +16,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.15.2</version> <!-- Upewnij się, że używasz najnowszej wersji -->
+            <version>2.15.2</version>
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.neo4j.driver</groupId>
             <artifactId>neo4j-java-driver</artifactId>
-            <version>5.5.0</version> <!-- Ensure this matches your setup -->
+            <version>5.5.0</version>
         </dependency>
 
         <dependency>

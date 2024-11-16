@@ -1,26 +1,26 @@
 version: '3.7'
 
 services:
-  crawler:
-    build:
-      context: ./crawler
-      dockerfile: Dockerfile
-    container_name: crawler_container
-    volumes:
-      - ./datalake:/app/datalake
-    networks:
-      - app-network
+  #crawler:
+  #  build:
+  #    context: ./crawler
+  #    dockerfile: Dockerfile
+  #  container_name: crawler_container
+  #  volumes:
+  #    - ./datalake:/app/datalake
+  #  networks:
+  #    - app-network
 
-  indexer:
-    build:
-      context: ./indexer
-      dockerfile: Dockerfile
-    container_name: indexer_container
-    volumes:
-      - ./datalake:/app/datalake
-      - ./datamart:/app/datamart
-    networks:
-      - app-network
+  #indexer:
+  #  build:
+  #    context: ./indexer
+  #    dockerfile: Dockerfile
+  #  container_name: indexer_container
+  #  volumes:
+  #    - ./datalake:/app/datalake
+  #    - ./datamart:/app/datamart
+  #  networks:
+  #    - app-network
 
   query_engine:
     build:
