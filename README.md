@@ -54,17 +54,20 @@ ENTRYPOINT ["java", "-jar", "crawler.jar"]
 2. Install Dependencies: Use Maven to install dependencies in the main directory
 
 ````bash
-mvn clean install
+mvn clean install -DskipTests
 ````
 
 3. Build and Start Docker Containers: Navigate to the project’s root directory and run:
 
 ````bash
-docker-compose up --build
+docker compose build
 ````
 
+````bash
+docker compose up
+````
 
-4. Running Modules: Each module runs automatically within its Docker container. Use tools like Postman or cURL to interact with the API.
+4. Running Modules: Each module runs automatically within its Docker container. Use tools like Postman or cURL to interact with the API. In docker all modules are connected. We created volumes for storing book data and processed indexes and metadata. Individual modules have specific access to them. Additionally, when docker is launched, all necessary packages are downloaded and the application starts working.
 
 ## SOLID Principles and Design Patterns
 The project follows the five SOLID principles for maintainability and scalability, using well-known architectures like MVC and design patterns such as Factory Method to ensure the system is extensible and robust.
