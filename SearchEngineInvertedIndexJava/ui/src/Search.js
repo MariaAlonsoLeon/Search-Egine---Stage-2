@@ -8,8 +8,9 @@ const Search = ({ searchType }) => {
     const [contextSize, setContextSize] = useState(10);
     const [documentFolderPath, setDocumentFolderPath] = useState('');
     const [bookName, setBookName] = useState('');
-    const [dataType, setDataType] = useState('JSON');
     const [results, setResults] = useState(null);
+
+    const dataType = process.env.REACT_APP_DATATYPE || 'JSON';
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -56,50 +57,7 @@ const Search = ({ searchType }) => {
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className="flex flex-col mb-4">
                     <span className="font-semibold mb-2">Data Format:</span>
-                    <label className="inline-flex items-center mb-1">
-                        <input
-                            type="radio"
-                            name="format"
-                            value="JSON"
-                            checked={dataType === 'JSON'}
-                            onChange={(e) => setDataType(e.target.value)}
-                            className="mr-2"
-                        />
-                        <span className="ml-2">JSON</span>
-                    </label>
-                    <label className="inline-flex items-center mb-1">
-                        <input
-                            type="radio"
-                            name="format"
-                            value="BINARY"
-                            checked={dataType === 'BINARY'}
-                            onChange={(e) => setDataType(e.target.value)}
-                            className="mr-2"
-                        />
-                        <span className="ml-2">BINARY</span>
-                    </label>
-                    <label className="inline-flex items-center mb-1">
-                        <input
-                            type="radio"
-                            name="format"
-                            value="NEO4J"
-                            checked={dataType === 'NEO4J'}
-                            onChange={(e) => setDataType(e.target.value)}
-                            className="mr-2"
-                        />
-                        <span className="ml-2">NEO4J</span>
-                    </label>
-                    <label className="inline-flex items-center">
-                        <input
-                            type="radio"
-                            name="format"
-                            value="MONGODB"
-                            checked={dataType === 'MONGODB'}
-                            onChange={(e) => setDataType(e.target.value)}
-                            className="mr-2"
-                        />
-                        <span className="ml-2">MONGODB</span>
-                    </label>
+                    <p>{dataType}</p>
                 </div>
 
                 {searchType === 'searchSingleWordII' && (

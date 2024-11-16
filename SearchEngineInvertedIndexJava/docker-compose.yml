@@ -46,6 +46,7 @@ services:
       - "3000:80"
     environment:
       - REACT_APP_API_URL=http://query_engine:8080
+      - REACT_APP_DATATYPE=NEO4J
     networks:
       - app-network
 
