@@ -11,16 +11,18 @@ services:
   #  networks:
   #    - app-network
 
-  #indexer:
-  #  build:
-  #    context: ./indexer
-  #    dockerfile: Dockerfile
-  #  container_name: indexer_container
-  #  volumes:
-  #    - ./datalake:/app/datalake
-  #    - ./datamart:/app/datamart
-  #  networks:
-  #    - app-network
+  indexer:
+    build:
+      context: ./indexer
+      dockerfile: Dockerfile
+    container_name: indexer_container
+    volumes:
+      - ./datalake:/app/datalake
+      - ./datamart:/app/datamart
+    environment:
+      - DATATYPE=NEO4J
+    networks:
+      - app-network
 
   query_engine:
     build:

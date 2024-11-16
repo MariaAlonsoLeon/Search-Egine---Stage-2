@@ -32,6 +32,9 @@ public class Main {
         String formattedDate = currentDate.format(formatter);
         String folderPath = String.format("%s/%s", DOCUMENT_REPOSITORY, formattedDate);
 
+        String datatype = System.getenv("DATATYPE");
+        System.out.println(datatype);
+
         // Create inverted indexes and metadata for all files in the folder
         processAllDocumentsInFolder(folderPath);
     }
