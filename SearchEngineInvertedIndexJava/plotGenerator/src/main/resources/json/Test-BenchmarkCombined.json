@@ -1,0 +1,64 @@
+[
+    {
+        "jmhVersion" : "1.36",
+        "benchmark" : "Benchmark.BenchmarkCombined.benchmarkCreateInvertedIndex",
+        "mode" : "thrpt",
+        "threads" : 1,
+        "forks" : 1,
+        "jvm" : "C:\\Users\\loseg\\.jdks\\corretto-21.0.5\\bin\\java.exe",
+        "jvmArgs" : [
+            "-javaagent:C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2023.2.2\\lib\\idea_rt.jar=51396:C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2023.2.2\\bin",
+            "-Dfile.encoding=UTF-8",
+            "-Dsun.stdout.encoding=UTF-8",
+            "-Dsun.stderr.encoding=UTF-8"
+        ],
+        "jdkVersion" : "21.0.5",
+        "vmName" : "OpenJDK 64-Bit Server VM",
+        "vmVersion" : "21.0.5+11-LTS",
+        "warmupIterations" : 2,
+        "warmupTime" : "10 s",
+        "warmupBatchSize" : 1,
+        "measurementIterations" : 10,
+        "measurementTime" : "10 s",
+        "measurementBatchSize" : 1,
+        "primaryMetric" : {
+            "score" : 0.1022568884427431,
+            "scoreError" : 0.003435208929489212,
+            "scoreConfidence" : [
+                0.09882167951325388,
+                0.10569209737223231
+            ],
+            "scorePercentiles" : {
+                "0.0" : 0.09899432049026059,
+                "50.0" : 0.10179193366731101,
+                "90.0" : 0.1054897572616765,
+                "95.0" : 0.10553851868926298,
+                "99.0" : 0.10553851868926298,
+                "99.9" : 0.10553851868926298,
+                "99.99" : 0.10553851868926298,
+                "99.999" : 0.10553851868926298,
+                "99.9999" : 0.10553851868926298,
+                "100.0" : 0.10553851868926298
+            },
+            "scoreUnit" : "ops/ms",
+            "rawData" : [
+                [
+                    0.10168799676267692,
+                    0.09899432049026059,
+                    0.10092519049520644,
+                    0.10016267738315349,
+                    0.1003190204802879,
+                    0.10335711284162871,
+                    0.10189587057194512,
+                    0.10505090441339829,
+                    0.10553851868926298,
+                    0.10463727229961053
+                ]
+            ]
+        },
+        "secondaryMetrics" : {
+        }
+    }
+]
+
+

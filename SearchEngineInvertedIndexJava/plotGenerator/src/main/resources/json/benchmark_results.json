@@ -1,0 +1,120 @@
+[
+    {
+        "jmhVersion" : "1.35",
+        "benchmark" : "org.example.crawler.GutenbergDocumentDownloaderBenchmark.benchmarkDownloadDocument",
+        "mode" : "avgt",
+        "threads" : 1,
+        "forks" : 1,
+        "jvm" : "C:\\Program Files\\JAVA\\jdk-23\\bin\\java.exe",
+        "jvmArgs" : [
+            "-javaagent:C:\\Users\\Usuario\\AppData\\Local\\JetBrains\\IntelliJ IDEA 2024.2.2\\lib\\idea_rt.jar=64789:C:\\Users\\Usuario\\AppData\\Local\\JetBrains\\IntelliJ IDEA 2024.2.2\\bin",
+            "-Dfile.encoding=UTF-8",
+            "-Dsun.stdout.encoding=UTF-8",
+            "-Dsun.stderr.encoding=UTF-8"
+        ],
+        "jdkVersion" : "23",
+        "vmName" : "Java HotSpot(TM) 64-Bit Server VM",
+        "vmVersion" : "23+37-2369",
+        "warmupIterations" : 5,
+        "warmupTime" : "10 s",
+        "warmupBatchSize" : 1,
+        "measurementIterations" : 5,
+        "measurementTime" : "10 s",
+        "measurementBatchSize" : 1,
+        "params" : {
+            "bookId" : "1234"
+        },
+        "primaryMetric" : {
+            "score" : 197.50778393996984,
+            "scoreError" : 9.979004130656614,
+            "scoreConfidence" : [
+                187.52877980931322,
+                207.48678807062646
+            ],
+            "scorePercentiles" : {
+                "0.0" : 194.74250192307693,
+                "50.0" : 198.62616666666668,
+                "90.0" : 200.613822,
+                "95.0" : 200.613822,
+                "99.0" : 200.613822,
+                "99.9" : 200.613822,
+                "99.99" : 200.613822,
+                "99.999" : 200.613822,
+                "99.9999" : 200.613822,
+                "100.0" : 200.613822
+            },
+            "scoreUnit" : "ms/op",
+            "rawData" : [
+                [
+                    200.613822,
+                    194.74250192307693,
+                    194.8737153846154,
+                    198.62616666666668,
+                    198.6827137254902
+                ]
+            ]
+        },
+        "secondaryMetrics" : {
+        }
+    },
+    {
+        "jmhVersion" : "1.35",
+        "benchmark" : "org.example.crawler.GutenbergDocumentDownloaderBenchmark.benchmarkDownloadDocument",
+        "mode" : "avgt",
+        "threads" : 1,
+        "forks" : 1,
+        "jvm" : "C:\\Program Files\\JAVA\\jdk-23\\bin\\java.exe",
+        "jvmArgs" : [
+            "-javaagent:C:\\Users\\Usuario\\AppData\\Local\\JetBrains\\IntelliJ IDEA 2024.2.2\\lib\\idea_rt.jar=64789:C:\\Users\\Usuario\\AppData\\Local\\JetBrains\\IntelliJ IDEA 2024.2.2\\bin",
+            "-Dfile.encoding=UTF-8",
+            "-Dsun.stdout.encoding=UTF-8",
+            "-Dsun.stderr.encoding=UTF-8"
+        ],
+        "jdkVersion" : "23",
+        "vmName" : "Java HotSpot(TM) 64-Bit Server VM",
+        "vmVersion" : "23+37-2369",
+        "warmupIterations" : 5,
+        "warmupTime" : "10 s",
+        "warmupBatchSize" : 1,
+        "measurementIterations" : 5,
+        "measurementTime" : "10 s",
+        "measurementBatchSize" : 1,
+        "params" : {
+            "bookId" : "5678"
+        },
+        "primaryMetric" : {
+            "score" : 398.69784009230773,
+            "scoreError" : 38.4552841850266,
+            "scoreConfidence" : [
+                360.24255590728114,
+                437.1531242773343
+            ],
+            "scorePercentiles" : {
+                "0.0" : 385.5292153846154,
+                "50.0" : 397.54915,
+                "90.0" : 410.989156,
+                "95.0" : 410.989156,
+                "99.0" : 410.989156,
+                "99.9" : 410.989156,
+                "99.99" : 410.989156,
+                "99.999" : 410.989156,
+                "99.9999" : 410.989156,
+                "100.0" : 410.989156
+            },
+            "scoreUnit" : "ms/op",
+            "rawData" : [
+                [
+                    410.989156,
+                    393.74942307692305,
+                    405.672256,
+                    385.5292153846154,
+                    397.54915
+                ]
+            ]
+        },
+        "secondaryMetrics" : {
+        }
+    }
+]
+
+

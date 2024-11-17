@@ -1,0 +1,37 @@
+{"results": [
+  {
+    "FileSystemSearch": 14,
+    "Neo4jSearch": 10,
+    "bookCount": 10,
+    "MongoDBSearch": 29,
+    "BinaryFileSearch": 3392
+  },
+  {
+    "FileSystemSearch": 9,
+    "Neo4jSearch": 6,
+    "bookCount": 50,
+    "MongoDBSearch": 6,
+    "BinaryFileSearch": 3493
+  },
+  {
+    "FileSystemSearch": 8,
+    "Neo4jSearch": 6,
+    "bookCount": 100,
+    "MongoDBSearch": 10,
+    "BinaryFileSearch": 3741
+  },
+  {
+    "FileSystemSearch": 11,
+    "Neo4jSearch": 6,
+    "bookCount": 500,
+    "MongoDBSearch": 5,
+    "BinaryFileSearch": 4975
+  },
+  {
+    "FileSystemSearch": 7,
+    "Neo4jSearch": 7,
+    "bookCount": 1000,
+    "MongoDBSearch": 7,
+    "BinaryFileSearch": 7783
+  }
+]}
