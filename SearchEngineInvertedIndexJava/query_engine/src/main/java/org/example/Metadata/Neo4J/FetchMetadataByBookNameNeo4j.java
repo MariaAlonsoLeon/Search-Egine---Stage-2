@@ -29,7 +29,6 @@ public class FetchMetadataByBookNameNeo4j implements FetchMetadataCommand {
                     RETURN f.author AS author, f.date AS date, f.language AS language
                     """;
 
-            // Ejecuta la consulta y obtiene los resultados
             var result = session.run(query, Map.of("bookName", bookName));
 
             if (result.hasNext()) {
@@ -39,7 +38,6 @@ public class FetchMetadataByBookNameNeo4j implements FetchMetadataCommand {
                 String date = record.get("date").asString();
                 String language = record.get("language").asString();
 
-                // Agrega los metadatos al mapa
                 metadata.put("author", author != null ? author : "Unknown");
                 metadata.put("date", date != null ? date : "Unknown");
                 metadata.put("language", language != null ? language : "Unknown");

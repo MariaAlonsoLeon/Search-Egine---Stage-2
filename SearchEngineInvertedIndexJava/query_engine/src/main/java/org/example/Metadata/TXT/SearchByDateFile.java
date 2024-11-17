@@ -18,11 +18,9 @@ public class SearchByDateFile implements SearchMetadataCommand {
     public List<String> execute() {
         List<String> documentNames = new ArrayList<>();
 
-        // Leer el archivo y buscar todos los documentos que tengan la fecha especificada
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
 
-            // Leer cada línea del archivo que contiene los metadatos
             while ((line = reader.readLine()) != null) {
                 if (line.contains("\"date\": \"" + date + "\"")) {
                     String documentName = extractDocumentName(line);
@@ -38,7 +36,6 @@ public class SearchByDateFile implements SearchMetadataCommand {
         return documentNames;
     }
 
-    // Método auxiliar para extraer el nombre del documento de la línea JSON-like
     private String extractDocumentName(String jsonLine) {
         String nameKey = "\"documentName\": \"";
         int nameStart = jsonLine.indexOf(nameKey);

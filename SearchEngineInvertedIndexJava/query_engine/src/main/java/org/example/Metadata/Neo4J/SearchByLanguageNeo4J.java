@@ -30,7 +30,6 @@ public class SearchByLanguageNeo4J implements SearchMetadataCommand {
 
             while (result.hasNext()) {
                 Record record = result.next();
-                // Agregar solo el título del libro a la lista de resultados
                 results.add(record.get("name").asString());
             }
         } catch (Exception e) {

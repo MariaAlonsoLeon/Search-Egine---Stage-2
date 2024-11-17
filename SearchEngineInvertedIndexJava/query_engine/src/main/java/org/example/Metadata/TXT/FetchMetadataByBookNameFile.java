@@ -23,7 +23,6 @@ public class FetchMetadataByBookNameFile implements FetchMetadataCommand {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                // Buscar si la línea contiene el nombre del libro
                 if (line.contains("\"documentName\": \"" + bookName + "\"")) {
                     System.out.println("A");
                     metadata.put("author", extractField(line, "author"));
@@ -40,7 +39,6 @@ public class FetchMetadataByBookNameFile implements FetchMetadataCommand {
     }
 
     private String extractField(String jsonLine, String fieldName) {
-        // Buscar el patrón para el campo en la línea de metadatos
         String fieldKey = "\"" + fieldName + "\": \"";
         int fieldStart = jsonLine.indexOf(fieldKey);
 

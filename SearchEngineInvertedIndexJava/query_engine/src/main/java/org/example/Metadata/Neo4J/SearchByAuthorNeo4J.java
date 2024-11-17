@@ -30,7 +30,6 @@ public class SearchByAuthorNeo4J implements SearchMetadataCommand {
 
             while (result.hasNext()) {
                 Record record = result.next();
-                // Agregar solo el título del libro a la lista de resultados
                 System.out.println();
                 results.add(record.get("name").asString());
             }

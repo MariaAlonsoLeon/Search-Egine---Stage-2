@@ -65,7 +65,7 @@ public class SearchWordWithContextNeo4J implements SearchCommand {
 
                     contexts.put(filename, documentContexts);
                 } catch (IOException e) {
-                    System.err.println("Error al leer el archivo " + filePath + ": " + e.getMessage());
+                    System.err.println("Error reading file " + filePath + ": " + e.getMessage());
                 }
             }
         }
