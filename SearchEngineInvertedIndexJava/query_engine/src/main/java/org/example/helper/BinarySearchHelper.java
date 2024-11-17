@@ -1,36 +1,49 @@
 package org.example.helper;
 
-import java.util.Collections;
+import org.example.InvertedIndex.Binary.ContextSearchBinary;
+import org.example.InvertedIndex.Binary.SingleWordSearchBinary;
+import org.example.InvertedIndex.TXT.ContextSearchFile;
+import org.example.Metadata.Binary.FetchMetadataByBinaryFile;
+import org.example.Metadata.Binary.SearchByAuthorBinaryFile;
+import org.example.Metadata.Binary.SearchByDateBinaryFile;
+import org.example.Metadata.Binary.SearchByLanguageBinaryFile;
 import java.util.List;
+import java.util.Map;
 
 public class BinarySearchHelper implements SearchHelper {
     @Override
-    public List<String> searchSingleWordII(String word) {
-        return Collections.emptyList();
+    public Map<String, List<String>> searchSingleWordII(String word) {
+        SingleWordSearchBinary single = new SingleWordSearchBinary(word, "datamart/inverted_index.dat");
+        return single.execute();
     }
 
     @Override
-    public List<String> searchWithContextII(String word, int contextSize, String documentFolderPath) {
-        return Collections.emptyList();
+    public Map<String, List<String>> searchWithContextII(String word, int contextSize, String documentFolderPath) {
+        ContextSearchBinary context = new ContextSearchBinary(word, 5, "datamart/inverted_index.dat", "datalake/");
+        return context.execute();
     }
 
     @Override
     public List<String> searchByAuthorMD(String author) {
-        return Collections.emptyList();
+        SearchByAuthorBinaryFile authorSearch = new SearchByAuthorBinaryFile(author, "datamart/metadata.dat");
+        return authorSearch.execute();
     }
 
     @Override
     public List<String> searchByDateMD(String date) {
-        return Collections.emptyList();
+        SearchByDateBinaryFile dateSearch = new SearchByDateBinaryFile(date, "datamart/metadata.dat");
+        return dateSearch.execute();
     }
 
     @Override
     public List<String> searchByLanguageMD(String language) {
-        return Collections.emptyList();
+        SearchByLanguageBinaryFile languageSearch = new SearchByLanguageBinaryFile(language, "datamart/metadata.dat");
+        return languageSearch.execute();
     }
 
     @Override
-    public List<String> fetchMD(String bookName) {
-        return Collections.emptyList();
+    public Map<String, String> fetchMD(String bookName) {
+        FetchMetadataByBinaryFile fetchMetadataByBinaryFile = new FetchMetadataByBinaryFile(bookName, "datamart/metadata.dat");
+        return fetchMetadataByBinaryFile.execute();
     }
 }
