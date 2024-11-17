@@ -54,14 +54,12 @@ public class Main {
         });
 
         if (datatype != null && actions.containsKey(datatype)) {
-            // Ejecución inicial del procesamiento de todos los documentos en el datalake
             processAllDocumentsInDatalake(DOCUMENT_REPOSITORY, actions.get(datatype));
         } else {
             System.out.println("Unsupported or undefined DATATYPE: " + datatype);
         }
     }
 
-    // Método para ejecutar la tarea periódica cada 1 minuto
     private static void scheduleIndexerExecution() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -103,12 +101,21 @@ public class Main {
         System.out.println("Date updated: " + currentDate);
     }
 
+    private static final Set<String> processedFiles = new HashSet<>();
+
     private static void processAllDocumentsInDatalake(String rootFolderPath, Consumer<DocumentProcessors> action) {
         try {
             Files.walk(Paths.get(rootFolderPath))
                     .filter(Files::isRegularFile)
                     .forEach(path -> {
                         String filePath = path.toAbsolutePath().toString();
+
+                        if (processedFiles.contains(filePath)) {
+                            System.out.println("Skipping already processed file: " + filePath);
+                            return;
+                        }
+
+                        processedFiles.add(filePath); // Marcar el archivo como procesado
                         System.out.println("Processing file: " + filePath);
 
                         Map<String, String> documentContent = readBook(filePath);
@@ -133,6 +140,7 @@ public class Main {
             e.printStackTrace();
         }
     }
+
 
     private static Map<String, String> readBook(String fileName) {
         Map<String, String> result = new HashMap<>();
