@@ -15,7 +15,7 @@ public class ExecuteProcessingBenchmark {
                     .warmupIterations(5)
                     .measurementIterations(10)
                     .resultFormat(ResultFormatType.JSON)
-                    .result("Benchmark-Metadata-Processing.json") // Guarda los resultados en un archivo JSON
+                    .result("Benchmark-Metadata-Processing.json") 
                     .build();
 
             new Runner(options).run();
@@ -31,7 +31,7 @@ public class ExecuteProcessingBenchmark {
                     .warmupIterations(5)
                     .measurementIterations(10)
                     .resultFormat(ResultFormatType.JSON)
-                    .result("Benchmark-InvertedIndex-Processing.json") // Guarda los resultados en un archivo JSON
+                    .result("Benchmark-InvertedIndex-Processing.json") 
                     .build();
 
             new Runner(options).run();
