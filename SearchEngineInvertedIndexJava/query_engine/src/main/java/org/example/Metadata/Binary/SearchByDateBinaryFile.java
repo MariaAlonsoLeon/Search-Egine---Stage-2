@@ -9,7 +9,6 @@ public class SearchByDateBinaryFile implements SearchMetadataCommand {
     private final String date;
     private final String filePath;
 
-    // Mapa de claves para asociar abreviaturas de campos (igual que en StoreBinary_MD)
     private static final Map<Byte, String> metadataKeys = new HashMap<>();
     static {
         metadataKeys.put((byte) 1, "documentName");
@@ -31,22 +30,18 @@ public class SearchByDateBinaryFile implements SearchMetadataCommand {
             String currentDocumentName = null;
             String currentDate = null;
 
-            // Leer el archivo binario
             while (dis.available() > 0) {
                 byte key = dis.readByte();
 
                 if (key == 0) {
-                    // Fin de registro, verificar si la fecha coincide
                     if (currentDate != null && currentDate.equals(date) && currentDocumentName != null) {
                         documentNames.add(currentDocumentName);
                     }
-                    // Reiniciar para el siguiente registro
                     currentDocumentName = null;
                     currentDate = null;
                 } else if (metadataKeys.containsKey(key)) {
                     String value = dis.readUTF();
 
-                    // Actualizar valores segÃºn clave
                     if (key == 1) {
                         currentDocumentName = value;
                     } else if (key == 3) {

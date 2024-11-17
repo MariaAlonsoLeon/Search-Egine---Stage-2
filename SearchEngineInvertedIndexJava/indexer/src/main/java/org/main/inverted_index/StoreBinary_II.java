@@ -6,7 +6,6 @@ import java.util.*;
 public class StoreBinary_II implements StoreInterface_II {
     private final String FILEPATH = "datamart/inverted_index.dat";
 
-    // Map to encode keys for compact storage in binary
     private static final Map<String, Byte> FIELD_CODES = new HashMap<>();
     private static final Map<Byte, String> REVERSE_FIELD_CODES = new HashMap<>();
 
@@ -23,7 +22,7 @@ public class StoreBinary_II implements StoreInterface_II {
 
     @Override
     public void storeInvertedIndex(Map<String, Map<String, List<Integer>>> invertedIndex) {
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(FILEPATH, true))) { // "true" para abrir en modo append
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(FILEPATH, true))) {
             for (Map.Entry<String, Map<String, List<Integer>>> wordEntry : invertedIndex.entrySet()) {
                 String word = wordEntry.getKey();
                 Map<String, List<Integer>> documents = wordEntry.getValue();

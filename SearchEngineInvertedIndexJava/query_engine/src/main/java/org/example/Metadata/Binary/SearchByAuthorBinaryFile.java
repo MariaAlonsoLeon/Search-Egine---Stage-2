@@ -19,7 +19,7 @@ public class SearchByAuthorBinaryFile implements SearchMetadataCommand {
     }
 
     public SearchByAuthorBinaryFile(String author, String filePath) {
-        this.author = author.toLowerCase(); // Convertir a minúsculas para búsqueda insensible a mayúsculas
+        this.author = author.toLowerCase();
         this.filePath = filePath;
     }
 
@@ -30,8 +30,6 @@ public class SearchByAuthorBinaryFile implements SearchMetadataCommand {
         try (DataInputStream dis = new DataInputStream(new FileInputStream(filePath))) {
             String currentDocumentName = null;
             String currentAuthor = null;
-
-            // Leer el archivo binario
             while (dis.available() > 0) {
                 byte key = dis.readByte();
 
@@ -40,7 +38,6 @@ public class SearchByAuthorBinaryFile implements SearchMetadataCommand {
                     if (currentAuthor != null && currentAuthor.equals(author) && currentDocumentName != null) {
                         documentNames.add(currentDocumentName);
                     }
-                    // Reiniciar para el siguiente registro
                     currentDocumentName = null;
                     currentAuthor = null;
                 } else if (metadataKeys.containsKey(key)) {
@@ -50,7 +47,7 @@ public class SearchByAuthorBinaryFile implements SearchMetadataCommand {
                     if (key == 1) {
                         currentDocumentName = value;
                     } else if (key == 2) {
-                        currentAuthor = value.toLowerCase(); // Normalizar para coincidencia insensible a mayúsculas
+                        currentAuthor = value.toLowerCase();
                     }
                 }
             }

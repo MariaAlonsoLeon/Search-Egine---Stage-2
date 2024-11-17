@@ -28,21 +28,18 @@ public class ContextSearchFile implements SearchCommand {
             String line;
             Pattern pattern = Pattern.compile("^\\{" + word + ": \\{(.*)}}$");
 
-            // Leer cada línea para buscar la palabra y extraer la información
             while ((line = reader.readLine()) != null) {
                 Matcher matcher = pattern.matcher(line.trim());
                 if (matcher.find()) {
                     String booksData = matcher.group(1);
                     Map<String, List<Integer>> bookMap = parseBookData(booksData);
 
-                    // Procesar cada libro que contiene la palabra
                     for (Map.Entry<String, List<Integer>> entry : bookMap.entrySet()) {
                         String bookTitle = entry.getKey();
                         List<Integer> positions = entry.getValue();
                         List<String> bookContexts = new ArrayList<>();
 
-                        // Leer el archivo de texto del libro para obtener el contenido
-                        File bookFile = new File(documentFolderPath, bookTitle + ".txt");
+                        File bookFile = new File(documentFolderPath,bookTitle + ".txt");
                         StringBuilder bookContent = new StringBuilder();
 
                         try (BufferedReader bookReader = new BufferedReader(new FileReader(bookFile))) {
@@ -52,11 +49,9 @@ public class ContextSearchFile implements SearchCommand {
                             }
                         }
 
-                        // Convertir el contenido a minúsculas y dividir en palabras
                         String bookText = bookContent.toString().toLowerCase();
                         String[] words = bookText.split("\\W+");
 
-                        // Generar contexto alrededor de cada posición
                         for (Integer pos : positions) {
                             int start = Math.max(0, pos - contextSize);
                             int end = Math.min(words.length, pos + contextSize);
@@ -75,7 +70,6 @@ public class ContextSearchFile implements SearchCommand {
         return contexts;
     }
 
-    // Función auxiliar para parsear los datos de libros y posiciones desde el archivo
     private Map<String, List<Integer>> parseBookData(String booksData) {
         Map<String, List<Integer>> bookMap = new HashMap<>();
         String[] bookEntries = booksData.split(", ");
