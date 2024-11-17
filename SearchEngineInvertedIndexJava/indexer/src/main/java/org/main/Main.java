@@ -19,23 +19,82 @@ public class Main {
     private static String currentDate;
     private static final ProcessMetadata process_metadata = new ProcessMetadata();
     private static final ProcessInvertedIndex process_inverted_index = new ProcessInvertedIndex();
+    private static final StoreInterface_II storeTextII = new StoreText_II();
+    private static final StoreInterface_II storeBinaryFileII = new StoreBinary_II();
+    private static final StoreInterface_II store_mongoDB_II = new StoreMongoDB_II();
+    private static final StoreInterface_II storeNeo4jII = new StoreNeo4j_II();
+    private static final StoreInterface_MD storeBinaryFileMD = new StoreBinary_MD();
+    private static final StoreInterface_MD store_mongoDB_MD = new StoreMongoDB_MD();
+    private static final StoreInterface_MD storeNeo4jMD = new StoreNeo4j_MD();
+    private static final StoreInterface_MD storeTextMD = new StoreText_MD();
 
     public static void main(String[] args) {
-        // Obtener DATATYPE de la variable de entorno
         String datatype = System.getenv("DATATYPE");
         System.out.println("DATATYPE: " + datatype);
 
         updateDate();
-        scheduleMidnightUpdate();
+        scheduleIndexerExecution();
 
-        Map<String, Consumer<DocumentProcessors>> actions = defineActions();
+        Map<String, Consumer<DocumentProcessors>> actions = new HashMap<>();
+        actions.put("Text", processors -> {
+            processors.storeInvertedIndex(storeTextII::storeInvertedIndex);
+            processors.storeMetadata(storeTextMD::storeMetadata);
+        });
+        actions.put("BinaryFile", processors -> {
+            processors.storeInvertedIndex(storeBinaryFileII::storeInvertedIndex);
+            processors.storeMetadata(storeBinaryFileMD::storeMetadata);
+        });
+        actions.put("MongoDB", processors -> {
+            processors.storeInvertedIndex(store_mongoDB_II::storeInvertedIndex);
+            processors.storeMetadata(store_mongoDB_MD::storeMetadata);
+        });
+        actions.put("NEO4J", processors -> {
+            processors.storeInvertedIndex(storeNeo4jII::storeInvertedIndex);
+            processors.storeMetadata(storeNeo4jMD::storeMetadata);
+        });
 
         if (datatype != null && actions.containsKey(datatype)) {
+            // Ejecución inicial del procesamiento de todos los documentos en el datalake
             processAllDocumentsInDatalake(DOCUMENT_REPOSITORY, actions.get(datatype));
-            startListener(DOCUMENT_REPOSITORY, actions.get(datatype));
         } else {
             System.out.println("Unsupported or undefined DATATYPE: " + datatype);
         }
+    }
+
+    // Método para ejecutar la tarea periódica cada 1 minuto
+    private static void scheduleIndexerExecution() {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+        scheduler.scheduleAtFixedRate(() -> {
+            try {
+                String datatype = System.getenv("DATATYPE");
+                if (datatype != null) {
+                    Map<String, Consumer<DocumentProcessors>> actions = new HashMap<>();
+                    actions.put("Text", processors -> {
+                        processors.storeInvertedIndex(storeTextII::storeInvertedIndex);
+                        processors.storeMetadata(storeTextMD::storeMetadata);
+                    });
+                    actions.put("BinaryFile", processors -> {
+                        processors.storeInvertedIndex(storeBinaryFileII::storeInvertedIndex);
+                        processors.storeMetadata(storeBinaryFileMD::storeMetadata);
+                    });
+                    actions.put("MongoDB", processors -> {
+                        processors.storeInvertedIndex(store_mongoDB_II::storeInvertedIndex);
+                        processors.storeMetadata(store_mongoDB_MD::storeMetadata);
+                    });
+                    actions.put("NEO4J", processors -> {
+                        processors.storeInvertedIndex(storeNeo4jII::storeInvertedIndex);
+                        processors.storeMetadata(storeNeo4jMD::storeMetadata);
+                    });
+
+                    if (actions.containsKey(datatype)) {
+                        processAllDocumentsInDatalake(DOCUMENT_REPOSITORY, actions.get(datatype));
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error while executing the indexer: " + e.getMessage());
+            }
+        }, 0, 1, TimeUnit.MINUTES);
     }
 
     private static void updateDate() {
@@ -44,113 +103,35 @@ public class Main {
         System.out.println("Date updated: " + currentDate);
     }
 
-    private static void scheduleMidnightUpdate() {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-        Calendar now = Calendar.getInstance();
-        Calendar midnight = (Calendar) now.clone();
-        midnight.set(Calendar.HOUR_OF_DAY, 0);
-        midnight.set(Calendar.MINUTE, 0);
-        midnight.set(Calendar.SECOND, 0);
-        midnight.set(Calendar.MILLISECOND, 0);
-
-        if (midnight.before(now)) {
-            midnight.add(Calendar.DAY_OF_MONTH, 1);
-        }
-
-        long initialDelay = midnight.getTimeInMillis() - now.getTimeInMillis();
-        long period = TimeUnit.DAYS.toMillis(1);
-
-        scheduler.scheduleAtFixedRate(Main::updateDate, initialDelay, period, TimeUnit.MILLISECONDS);
-    }
-
-    private static Map<String, Consumer<DocumentProcessors>> defineActions() {
-        Map<String, Consumer<DocumentProcessors>> actions = new HashMap<>();
-
-        actions.put("Text", processors -> {
-            processors.storeInvertedIndex(new StoreText_II()::storeInvertedIndex);
-            processors.storeMetadata(new StoreText_MD()::storeMetadata);
-        });
-
-        actions.put("BinaryFile", processors -> {
-            processors.storeInvertedIndex(new StoreBinary_II()::storeInvertedIndex);
-            processors.storeMetadata(new StoreBinary_MD()::storeMetadata);
-        });
-
-        actions.put("MongoDB", processors -> {
-            processors.storeInvertedIndex(new StoreMongoDB_II()::storeInvertedIndex);
-            processors.storeMetadata(new StoreMongoDB_MD()::storeMetadata);
-        });
-
-        actions.put("NEO4J", processors -> {
-            processors.storeInvertedIndex(new StoreNeo4j_II()::storeInvertedIndex);
-            processors.storeMetadata(new StoreNeo4j_MD()::storeMetadata);
-        });
-
-        return actions;
-    }
-
     private static void processAllDocumentsInDatalake(String rootFolderPath, Consumer<DocumentProcessors> action) {
         try {
             Files.walk(Paths.get(rootFolderPath))
                     .filter(Files::isRegularFile)
-                    .forEach(path -> processFile(path.toAbsolutePath().toString(), action));
+                    .forEach(path -> {
+                        String filePath = path.toAbsolutePath().toString();
+                        System.out.println("Processing file: " + filePath);
+
+                        Map<String, String> documentContent = readBook(filePath);
+
+                        if (documentContent.containsKey("error")) {
+                            System.out.println("Error reading file: " + documentContent.get("error"));
+                            return;
+                        }
+
+                        Map<String, Map<String, List<Integer>>> invertedIndex =
+                                process_inverted_index.createInvertedIndex(documentContent);
+                        Map<String, Map<String, String>> metadata =
+                                process_metadata.createMetadata(documentContent);
+
+                        DocumentProcessors processors = new DocumentProcessors(invertedIndex, metadata);
+                        action.accept(processors);
+
+                        System.out.println("Processing and storage completed for file: " + filePath);
+                    });
         } catch (IOException e) {
-            System.err.println("Error traversing the datalake directory: " + e.getMessage());
+            System.out.println("Error traversing the datalake directory: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    private static void startListener(String rootFolderPath, Consumer<DocumentProcessors> action) {
-        Path path = Paths.get(rootFolderPath, currentDate);
-
-        System.out.println("Initializing listener for: " + path);
-        try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
-            path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
-
-            while (true) {
-                WatchKey key;
-                try {
-                    key = watchService.take();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-
-                for (WatchEvent<?> event : key.pollEvents()) {
-                    WatchEvent.Kind<?> kind = event.kind();
-
-                    if (kind == StandardWatchEventKinds.OVERFLOW) continue;
-
-                    WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                    Path filePath = path.resolve(ev.context());
-                    processFile(filePath.toString(), action);
-                }
-
-                if (!key.reset()) break;
-            }
-        } catch (IOException e) {
-            System.err.println("Error initializing the listener: " + e.getMessage());
-        }
-    }
-
-    private static void processFile(String filePath, Consumer<DocumentProcessors> action) {
-        Map<String, String> documentContent = readBook(filePath);
-
-        if (documentContent.containsKey("error")) {
-            System.err.println("Error reading file: " + documentContent.get("error"));
-            return;
-        }
-
-        Map<String, Map<String, List<Integer>>> invertedIndex =
-                process_inverted_index.createInvertedIndex(documentContent, "indexer\\src\\main\\resources\\stopwords.txt");
-        Map<String, Map<String, String>> metadata =
-                process_metadata.createMetadata(documentContent);
-
-        DocumentProcessors processors = new DocumentProcessors(invertedIndex, metadata);
-        action.accept(processors);
-
-        System.out.println("Processing completed for file: " + filePath);
     }
 
     private static Map<String, String> readBook(String fileName) {
@@ -159,17 +140,19 @@ public class Main {
 
         File file = new File(fileName);
         if (!file.exists() || !file.canRead()) {
+            System.out.println("File does not exist or cannot be read: " + fileName);
             result.put("error", "File does not exist or cannot be read.");
             return result;
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
                 content.append(line).append("\n");
             }
             result.put(fileName, content.toString());
         } catch (IOException e) {
+            e.printStackTrace();
             result.put("error", "Error reading file: " + e.getMessage());
         }
 
@@ -181,17 +164,16 @@ class DocumentProcessors {
     private final Map<String, Map<String, List<Integer>>> invertedIndex;
     private final Map<String, Map<String, String>> metadata;
 
-    public DocumentProcessors(Map<String, Map<String, List<Integer>>> invertedIndex,
-                              Map<String, Map<String, String>> metadata) {
+    public DocumentProcessors(Map<String, Map<String, List<Integer>>> invertedIndex, Map<String, Map<String, String>> metadata) {
         this.invertedIndex = invertedIndex;
         this.metadata = metadata;
     }
 
-    public void storeInvertedIndex(Consumer<Map<String, Map<String, List<Integer>>>> storeFunction) {
-        storeFunction.accept(invertedIndex);
+    public void storeInvertedIndex(Consumer<Map<String, Map<String, List<Integer>>>> storeInvertedIndexMethod) {
+        storeInvertedIndexMethod.accept(invertedIndex);
     }
 
-    public void storeMetadata(Consumer<Map<String, Map<String, String>>> storeFunction) {
-        storeFunction.accept(metadata);
+    public void storeMetadata(Consumer<Map<String, Map<String, String>>> storeMetadataMethod) {
+        storeMetadataMethod.accept(metadata);
     }
 }

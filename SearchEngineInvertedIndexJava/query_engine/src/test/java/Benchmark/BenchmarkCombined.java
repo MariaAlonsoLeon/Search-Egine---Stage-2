@@ -45,7 +45,7 @@ public class BenchmarkCombined {
 
     @Benchmark
     public void benchmarkCreateInvertedIndex() {
-        ProcessInvertedIndex.createInvertedIndex(sampleBooks, "");
+        ProcessInvertedIndex.createInvertedIndex(sampleBooks);
     }
 
     @Benchmark

@@ -44,7 +44,7 @@ public class ScalabilityTest {
                 String bookContent = generateSampleBookContent(i);
                 Map<String, String> book = new HashMap<>();
                 book.put("book_" + i, bookContent);
-                Map<String, Map<String, List<Integer>>> invertedIndex = processInvertedIndex.createInvertedIndex(book, "indexer/src/main/resources/stopwords.txt");
+                Map<String, Map<String, List<Integer>>> invertedIndex = processInvertedIndex.createInvertedIndex(book);
                 storeText_ii.storeInvertedIndex(invertedIndex);
                 storeBinary_ii.storeInvertedIndex(invertedIndex);
                 storeMongoDB_ii.storeInvertedIndex(invertedIndex);

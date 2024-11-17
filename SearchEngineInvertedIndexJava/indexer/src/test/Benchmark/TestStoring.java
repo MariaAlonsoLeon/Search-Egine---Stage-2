@@ -39,7 +39,7 @@ public class TestStoring {
     @Setup(Level.Trial)
     public void setup() {
         Map<String, String> book = BookReader.read_books(N);
-        INVERTEDINDEX = ProcessInvertedIndex.createInvertedIndex(book, "indexer\\src\\main\\resources\\stopwords.txt");
+        INVERTEDINDEX = ProcessInvertedIndex.createInvertedIndex(book);
         METADATA = ProcessMetadata.createMetadata(book);
     }
 

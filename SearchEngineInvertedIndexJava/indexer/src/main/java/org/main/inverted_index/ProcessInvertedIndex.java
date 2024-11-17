@@ -1,24 +1,27 @@
 package org.main.inverted_index;
-
-import java.io.*;
 import java.util.*;
 
 public class ProcessInvertedIndex {
-    private static Set<String> STOPWORDS = new HashSet<>();
-    private static void loadStopwords(String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                STOPWORDS.add(line.trim().toLowerCase());
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading the stopwords: " + e.getMessage());
-        }
-    }
 
-    public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book, String stopwordsFilePath) {
-        loadStopwords(stopwordsFilePath);
+    private static final Set<String> STOPWORDS = new HashSet<>(Arrays.asList(
+            "a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any",
+            "are", "aren't", "aren't", "as", "at", "be", "because", "been", "before", "being",
+            "below", "between", "both", "but", "by", "can't", "cannot", "could", "couldn't", "couldnt",
+            "did", "didn't", "does", "doesn't", "don't", "for", "from", "had", "hadn't", "has",
+            "hasn't", "have", "haven't", "having", "he", "he'd", "he'll", "he's", "her", "here",
+            "here's", "hers", "herself", "hereafter", "hereby", "herein", "hereupon", "herself",
+            "how", "how's", "howsoever", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "is",
+            "isn't", "isn't", "it", "it's", "it'd", "it'll", "it's", "it's", "itself", "let",
+            "me", "me", "mine", "my", "myself", "no", "nor", "not", "of", "off", "on", "once",
+            "only", "or", "other", "others", "ought", "our", "ours", "ourselves", "ourselves",
+            "over", "own", "same", "than", "that", "that's", "that'd", "that'll", "that’s", "that",
+            "these", "they", "they'd", "they'll", "they're", "they've", "this", "this’s", "those",
+            "through", "to", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd",
+            "we'll", "we're", "we've", "what", "what's", "whatsoever", "which", "which's", "while",
+            "who", "who's", "whoever", "whom", "whom's", "whose", "why", "why's", "whyever",
+            "with", "won't", "would", "wouldn't"));
 
+    public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book) {
         Map<String, Map<String, List<Integer>>> invertedIndex = new HashMap<>();
 
         for (Map.Entry<String, String> entry : book.entrySet()) {
@@ -29,7 +32,7 @@ public class ProcessInvertedIndex {
 
             for (int i = 0; i < words.length; i++) {
                 String word = words[i].toLowerCase();
-                
+
                 if (!word.isEmpty() && !STOPWORDS.contains(word)) {
                     invertedIndex
                             .computeIfAbsent(word, k -> new HashMap<>())
@@ -54,16 +57,5 @@ public class ProcessInvertedIndex {
         }
 
         return filePath;
-    }
-
-    public static void main(String[] args) {
-        Map<String, String> books = new HashMap<>();
-        books.put("path/to/book1.txt", "This is a sample content with some stopwords like and, the, or.");
-        books.put("path/to/book2.txt", "Another book with different words, avoiding stopwords.");
-
-        String stopwordsFilePath = "path/to/stopwords.txt";  // Asegúrate de poner la ruta correcta
-        Map<String, Map<String, List<Integer>>> index = createInvertedIndex(books, stopwordsFilePath);
-
-        System.out.println(index);
     }
 }

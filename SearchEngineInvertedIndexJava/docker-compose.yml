@@ -7,7 +7,9 @@ services:
       dockerfile: Dockerfile
     container_name: crawler_container
     volumes:
-      - ./datalake:/app/datalake
+      - type: bind
+        source: ./datalake
+        target: /app/datalake
     networks:
       - app-network
 
@@ -17,10 +19,14 @@ services:
       dockerfile: Dockerfile
     container_name: indexer_container
     volumes:
-      - ./datalake:/app/datalake
-      - ./datamart:/app/datamart
+      - type: bind
+        source: ./datalake
+        target: /app/datalake
+      - type: bind
+        source: ./datamart
+        target: /app/datamart
     environment:
-      - DATATYPE=NEO4J
+      - DATATYPE=Text
     networks:
       - app-network
 
@@ -32,8 +38,12 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./datalake:/app/datalake
-      - ./datamart:/app/datamart
+      - type: bind
+        source: ./datalake
+        target: /app/datalake
+      - type: bind
+        source: ./datamart
+        target: /app/datamart
     networks:
       - app-network
 

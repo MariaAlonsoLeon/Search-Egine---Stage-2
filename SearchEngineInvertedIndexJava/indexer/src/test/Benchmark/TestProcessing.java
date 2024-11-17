@@ -47,7 +47,7 @@ public class TestProcessing {
 
         for (int i = 0; i < repetitions; i++) {
             long startTime = System.nanoTime();
-            processInvertedIndex.createInvertedIndex(books, "indexer\\src\\main\\resources\\stopwords.txt");
+            processInvertedIndex.createInvertedIndex(books);
             long endTime = System.nanoTime();
             totalTimeInNano += (endTime - startTime);
         }
