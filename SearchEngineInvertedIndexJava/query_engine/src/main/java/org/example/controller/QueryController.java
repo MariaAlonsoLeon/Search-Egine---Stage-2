@@ -61,12 +61,16 @@ public class QueryController {
             return gson.toJson(result);
         });
 
-        get("/search/:dataType/book/:bookName", (req, res) -> {
+        get("/search/:dataType/book/:bookDate/:bookName", (req, res) -> {
             String dataTypeParam = req.params(":dataType");
+            String bookDate = req.params(":bookDate");
             String bookName = req.params(":bookName");
+
+            String bookID = bookDate + "/" + bookName;
+
             DataType dataType = DataType.valueOf(dataTypeParam.toUpperCase());
             SearchHelper helper = SearchHelperFactory.getHelper(dataType);
-            Map<String, String> result = helper.fetchMD(bookName);
+            Map<String, String> result = helper.fetchMD(bookID);
             return gson.toJson(result);
         });
     }
