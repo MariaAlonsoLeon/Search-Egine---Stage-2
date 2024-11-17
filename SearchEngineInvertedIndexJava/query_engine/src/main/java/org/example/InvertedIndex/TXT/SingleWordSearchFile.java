@@ -24,14 +24,12 @@ public class SingleWordSearchFile implements SearchCommand {
             String line;
             Pattern pattern = Pattern.compile("^\\{" + word + ": \\{(.*)}}$");
 
-            // Leer cada línea para buscar la palabra
             while ((line = reader.readLine()) != null) {
                 Matcher matcher = pattern.matcher(line.trim());
                 if (matcher.find()) {
                     String booksData = matcher.group(1);
                     Map<String, List<Integer>> bookMap = parseBookData(booksData);
 
-                    // Formatear el resultado para el mapa final
                     for (Map.Entry<String, List<Integer>> entry : bookMap.entrySet()) {
                         String book = entry.getKey();
                         List<Integer> positions = entry.getValue();

@@ -9,7 +9,6 @@ public class SearchByAuthorBinaryFile implements SearchMetadataCommand {
     private final String author;
     private final String filePath;
 
-    // Mapa para asociar abreviaturas de campos (debe coincidir con el que se usa en StoreBinary_MD)
     private static final Map<Byte, String> metadataKeys = new HashMap<>();
     static {
         metadataKeys.put((byte) 1, "documentName");
@@ -43,7 +42,6 @@ public class SearchByAuthorBinaryFile implements SearchMetadataCommand {
                 } else if (metadataKeys.containsKey(key)) {
                     String value = dis.readUTF();
 
-                    // Actualizar valores según clave
                     if (key == 1) {
                         currentDocumentName = value;
                     } else if (key == 2) {

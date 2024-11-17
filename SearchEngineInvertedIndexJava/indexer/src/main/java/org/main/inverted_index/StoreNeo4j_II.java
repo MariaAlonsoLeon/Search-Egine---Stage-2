@@ -1,6 +1,5 @@
 package org.main.inverted_index;
 
-import org.main.inverted_index.StoreInterface_II;
 import org.neo4j.driver.*;
 
 import java.util.List;

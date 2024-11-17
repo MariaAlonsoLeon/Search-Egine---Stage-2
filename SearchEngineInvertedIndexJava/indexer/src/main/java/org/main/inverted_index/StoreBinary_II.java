@@ -14,7 +14,6 @@ public class StoreBinary_II implements StoreInterface_II {
         FIELD_CODES.put("document", (byte) 2);
         FIELD_CODES.put("positions", (byte) 3);
 
-        // Reverse mapping for reading data
         for (Map.Entry<String, Byte> entry : FIELD_CODES.entrySet()) {
             REVERSE_FIELD_CODES.put(entry.getValue(), entry.getKey());
         }
@@ -27,7 +26,6 @@ public class StoreBinary_II implements StoreInterface_II {
                 String word = wordEntry.getKey();
                 Map<String, List<Integer>> documents = wordEntry.getValue();
 
-                // Escribir el campo "word"
                 dos.writeByte(FIELD_CODES.get("word"));
                 dos.writeUTF(word);
 
@@ -35,18 +33,16 @@ public class StoreBinary_II implements StoreInterface_II {
                     String documentName = docEntry.getKey();
                     List<Integer> positions = docEntry.getValue();
 
-                    // Escribir el nombre del documento
                     dos.writeByte(FIELD_CODES.get("document"));
                     dos.writeUTF(documentName);
 
-                    // Escribir la lista de posiciones
                     dos.writeByte(FIELD_CODES.get("positions"));
-                    dos.writeInt(positions.size()); // Número de posiciones
+                    dos.writeInt(positions.size());
                     for (int pos : positions) {
-                        dos.writeInt(pos); // Escribir cada posición
+                        dos.writeInt(pos);
                     }
                 }
-                dos.writeByte(0); // Fin de un registro de palabra
+                dos.writeByte(0);
             }
             System.out.println("Inverted index stored successfully in binary file: " + FILEPATH);
         } catch (IOException e) {

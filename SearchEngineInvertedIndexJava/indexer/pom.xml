@@ -29,7 +29,6 @@
             <artifactId>neo4j-java-driver</artifactId>
             <version>5.5.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>
