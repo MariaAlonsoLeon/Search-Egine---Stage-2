@@ -13,7 +13,6 @@ public class ProcessMetadata {
         Map<String, Map<String, String>> metadataIndex = new HashMap<>();
 
         Pattern authorPattern = Pattern.compile("^Author:\\s*(.*)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
-        //Pattern releaseDatePattern = Pattern.compile("^Release date:\\s*(.*)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
         Pattern releaseDatePattern = Pattern.compile("^Release date:\\s*([A-Za-z]+ \\d{1,2}, \\d{4})", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
@@ -22,8 +21,8 @@ public class ProcessMetadata {
         Pattern languagePattern = Pattern.compile("^Language:\\s*(.*)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
         for (Map.Entry<String, String> entry : book.entrySet()) {
-            //String key = entry.getKey();
-            String key = entry.getKey().replaceAll("^datalake/(\\d{8}/book_\\d+)(?:\\.txt)?$", "$1");
+            String fullPath = entry.getKey();
+            String documentName = normalizePath(fullPath);
             String text = entry.getValue();
 
             Matcher authorMatcher = authorPattern.matcher(text);
@@ -32,7 +31,7 @@ public class ProcessMetadata {
 
             Map<String, String> metaData = new HashMap<>();
             metaData.put("author", authorMatcher.find() ? authorMatcher.group(1) : "Not found");
-            //metaData.put("date", releaseDateMatcher.find() ? releaseDateMatcher.group(1) : "Not found");
+
             if (releaseDateMatcher.find()) {
                 try {
                     String dateStr = releaseDateMatcher.group(1);
@@ -46,9 +45,25 @@ public class ProcessMetadata {
 
             metaData.put("language", languageMatcher.find() ? languageMatcher.group(1) : "Not found");
 
-            metadataIndex.put(key, metaData);
+            metadataIndex.put(documentName, metaData);
         }
 
         return metadataIndex;
+    }
+
+    private static String normalizePath(String filePath) {
+        String[] pathParts = filePath.split("[/\\\\]");
+        int length = pathParts.length;
+
+        if (length >= 3) {
+            String folderName = pathParts[length - 2];
+            String fileName = pathParts[length - 1];
+
+
+            String fileNameWithoutExtension = fileName.replaceFirst("\\.txt$", "");
+            return folderName + "/" + fileNameWithoutExtension;
+        }
+
+        return filePath;
     }
 }

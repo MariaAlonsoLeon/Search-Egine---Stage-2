@@ -24,38 +24,35 @@ public class ContextSearchBinary implements SearchCommand {
 
         try (DataInputStream dis = new DataInputStream(new FileInputStream(filePath))) {
             while (dis.available() > 0) {
-                // Leer el byte que indica el campo (word)
                 byte fieldCode = dis.readByte();
-                if (fieldCode != 1) { // Si no es el campo "word", saltamos
-                    dis.readUTF(); // Leer y descartar los datos
+                if (fieldCode != 1) {
+                    dis.readUTF();
                     continue;
                 }
 
                 String currentWord = dis.readUTF();
                 if (!currentWord.equals(word)) {
-                    skipDocumentEntries(dis); // Saltamos la entrada de esta palabra si no coincide
+                    skipDocumentEntries(dis);
                     continue;
                 }
 
-                // Si encontramos la palabra, leemos los documentos y sus posiciones
                 while (dis.available() > 0) {
                     fieldCode = dis.readByte();
                     if (fieldCode == 0) {
-                        break; // Fin del registro de palabra
+                        break;
                     }
 
-                    if (fieldCode == 2) { // Campo "document"
+                    if (fieldCode == 2) {
                         String documentName = dis.readUTF();
-                        fieldCode = dis.readByte(); // Leer el siguiente campo (positions)
+                        fieldCode = dis.readByte();
 
-                        if (fieldCode == 3) { // Campo "positions"
+                        if (fieldCode == 3) {
                             int positionsSize = dis.readInt();
                             List<Integer> positions = new ArrayList<>();
                             for (int i = 0; i < positionsSize; i++) {
                                 positions.add(dis.readInt());
                             }
 
-                            // Obtener el contenido del libro
                             File bookFile = new File(documentFolderPath, documentName + ".txt");
                             StringBuilder bookContent = new StringBuilder();
 
@@ -66,11 +63,9 @@ public class ContextSearchBinary implements SearchCommand {
                                 }
                             }
 
-                            // Convertir el contenido del libro a minúsculas y dividir en palabras
                             String bookText = bookContent.toString().toLowerCase();
                             String[] wordsInBook = bookText.split("\\W+");
 
-                            // Generar el contexto alrededor de cada posición
                             List<String> bookContexts = new ArrayList<>();
                             for (Integer pos : positions) {
                                 int start = Math.max(0, pos - contextSize);
@@ -91,21 +86,20 @@ public class ContextSearchBinary implements SearchCommand {
         return contexts;
     }
 
-    // Método para saltar la lectura de los documentos de una palabra
     private void skipDocumentEntries(DataInputStream dis) throws IOException {
         byte fieldCode;
         while (dis.available() > 0) {
             fieldCode = dis.readByte();
-            if (fieldCode == 0) { // Fin del registro de palabra
+            if (fieldCode == 0) {
                 break;
             }
-            if (fieldCode == 2) { // Campo "document"
-                dis.readUTF(); // Leer y descartar el nombre del documento
+            if (fieldCode == 2) {
+                dis.readUTF();
                 fieldCode = dis.readByte();
-                if (fieldCode == 3) { // Campo "positions"
+                if (fieldCode == 3) {
                     int positionsSize = dis.readInt();
                     for (int i = 0; i < positionsSize; i++) {
-                        dis.readInt(); // Leer y descartar las posiciones
+                        dis.readInt();
                     }
                 }
             }

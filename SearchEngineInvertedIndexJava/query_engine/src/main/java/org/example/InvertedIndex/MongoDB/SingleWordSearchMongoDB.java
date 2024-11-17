@@ -35,6 +35,7 @@ public class SingleWordSearchMongoDB implements SearchCommand {
 
             for (Document doc : documents) {
                 Document books = (Document) doc.get("books");
+                System.out.println(books);
                 for (String bookTitle : books.keySet()) {
                     List<Integer> positions = (List<Integer>) books.get(bookTitle);
 

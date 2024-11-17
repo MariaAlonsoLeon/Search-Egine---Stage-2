@@ -10,7 +10,9 @@ const Search = ({ searchType }) => {
     const [bookName, setBookName] = useState('');
     const [results, setResults] = useState(null);
 
-    const dataType = process.env.REACT_APP_DATATYPE || 'JSON';
+    //const dataType = process.env.REACT_APP_DATATYPE || 'JSON';
+    const dataType = process.env.REACT_APP_DATATYPE;
+    console.log("Data Type:", dataType);
 
     const handleSubmit = (e) => {
         e.preventDefault();

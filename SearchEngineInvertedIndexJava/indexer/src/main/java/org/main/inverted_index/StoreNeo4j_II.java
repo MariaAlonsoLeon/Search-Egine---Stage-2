@@ -24,7 +24,7 @@ public class StoreNeo4j_II implements StoreInterface_II {
                     for (Map.Entry<String, List<Integer>> docEntry : docs.entrySet()) {
                         String book = docEntry.getKey();
                         List<Integer> positions = docEntry.getValue();
-                        int count = positions.size(); // Count of occurrences
+                        int count = positions.size();
 
                         tx.run(
                                 "MERGE (d:Document {title: $title}) " +

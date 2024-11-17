@@ -15,9 +15,6 @@ public class StoreMongoDB_MD implements StoreInterface_MD {
     @Override
     public void storeMetadata(Map<String, Map<String, String>> metadata) {
         Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
-        /*MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("book_search_engine");
-        MongoCollection<Document> collection = database.getCollection("metadata");*/
         collection = database.getCollection("metadata");
 
         for (Map.Entry<String, Map<String, String>> documentEntry : metadata.entrySet()) {
@@ -32,8 +29,5 @@ public class StoreMongoDB_MD implements StoreInterface_MD {
 
             collection.insertOne(doc);
         }
-
-        //System.out.println("Metadata stored in MongoDB.");
-        //mongoClient.close();
     }
 }

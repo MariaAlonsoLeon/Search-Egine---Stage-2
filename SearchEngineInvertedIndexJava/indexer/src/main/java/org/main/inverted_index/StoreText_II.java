@@ -18,13 +18,11 @@ public class StoreText_II implements StoreInterface_II {
             return;
         }
 
-        // Ensure parent directory exists
         File dir = file.getParentFile();
         if (!dir.exists()) {
             dir.mkdirs();
         }
 
-        // Step 1: Load existing data from the file into a list of lines
         List<String> lines = new ArrayList<>();
         try {
             if (file.exists()) {
@@ -40,7 +38,6 @@ public class StoreText_II implements StoreInterface_II {
             return;
         }
 
-        // Step 2: Update lines with new inverted index data
         Map<String, Map<String, List<Integer>>> updatedInvertedIndex = new HashMap<>();
         for (String line : lines) {
             String cleanedLine = line.trim();
@@ -55,7 +52,6 @@ public class StoreText_II implements StoreInterface_II {
             }
         }
 
-        // Merge new data into existing data
         for (Map.Entry<String, Map<String, List<Integer>>> wordEntry : invertedIndex.entrySet()) {
             String word = wordEntry.getKey();
             Map<String, List<Integer>> newBookData = wordEntry.getValue();
@@ -79,7 +75,6 @@ public class StoreText_II implements StoreInterface_II {
             }
         }
 
-        // Step 3: Write the updated inverted index back to the file, one line per word
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             for (Map.Entry<String, Map<String, List<Integer>>> entry : updatedInvertedIndex.entrySet()) {
                 String word = entry.getKey();
@@ -92,7 +87,6 @@ public class StoreText_II implements StoreInterface_II {
         }
     }
 
-    // Parses a JSON-like string into a map of books and positions
     private static Map<String, List<Integer>> parseMap(String mapStr) {
         Map<String, List<Integer>> map = new HashMap<>();
         mapStr = mapStr.replaceAll("[{}]", "");
@@ -113,14 +107,13 @@ public class StoreText_II implements StoreInterface_II {
         return map;
     }
 
-    // Converts a map to a JSON-like string representation for writing
     private static String mapToString(Map<String, List<Integer>> map) {
         StringBuilder sb = new StringBuilder("{");
         for (Map.Entry<String, List<Integer>> entry : map.entrySet()) {
             sb.append(entry.getKey()).append(": ").append(entry.getValue()).append(", ");
         }
         if (sb.length() > 1) {
-            sb.setLength(sb.length() - 2); // Remove the last comma and space
+            sb.setLength(sb.length() - 2);
         }
         sb.append("}");
         return sb.toString();

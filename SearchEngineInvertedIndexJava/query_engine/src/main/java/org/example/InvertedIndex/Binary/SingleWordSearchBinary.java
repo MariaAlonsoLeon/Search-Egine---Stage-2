@@ -20,33 +20,29 @@ public class SingleWordSearchBinary implements SearchCommand {
 
         try (DataInputStream dis = new DataInputStream(new FileInputStream(filePath))) {
             while (dis.available() > 0) {
-                // Leer el byte que indica el campo (word)
                 byte fieldCode = dis.readByte();
-                if (fieldCode != 1) { // Si no es el campo "word", saltamos
-                    dis.readUTF(); // Leer y descartar los datos
+                if (fieldCode != 1) {
+                    dis.readUTF();
                     continue;
                 }
                 String currentWord = dis.readUTF();
 
-                // Si la palabra no coincide con la que buscamos, saltamos al siguiente registro
                 if (!currentWord.equals(word)) {
-                    skipDocumentEntries(dis); // Saltamos los documentos de esta palabra
+                    skipDocumentEntries(dis);
                     continue;
                 }
 
-                // Si encontramos la palabra, leemos los documentos asociados
                 while (dis.available() > 0) {
                     fieldCode = dis.readByte();
                     if (fieldCode == 0) {
-                        break; // Fin del registro de la palabra
+                        break;
                     }
 
-                    // Leer los documentos y las posiciones
-                    if (fieldCode == 2) { // Campo "document"
+                    if (fieldCode == 2) {
                         String documentName = dis.readUTF();
-                        fieldCode = dis.readByte(); // Leer siguiente campo ("positions")
+                        fieldCode = dis.readByte();
 
-                        if (fieldCode == 3) { // Campo "positions"
+                        if (fieldCode == 3) {
                             int positionsSize = dis.readInt();
                             List<String> positionList = new ArrayList<>();
 
@@ -55,7 +51,6 @@ public class SingleWordSearchBinary implements SearchCommand {
                                 positionList.add(String.valueOf(position));
                             }
 
-                            // Añadir el resultado al mapa
                             results.putIfAbsent(documentName, new ArrayList<>());
                             results.get(documentName).add(String.join(", ", positionList));
                         }
@@ -69,21 +64,20 @@ public class SingleWordSearchBinary implements SearchCommand {
         return results;
     }
 
-    // Método para saltar la lectura de los documentos de una palabra
     private void skipDocumentEntries(DataInputStream dis) throws IOException {
         byte fieldCode;
         while (dis.available() > 0) {
             fieldCode = dis.readByte();
-            if (fieldCode == 0) { // Fin del registro de palabra
+            if (fieldCode == 0) {
                 break;
             }
-            if (fieldCode == 2) { // Campo "document"
-                dis.readUTF(); // Leer y descartar el nombre del documento
+            if (fieldCode == 2) {
+                dis.readUTF();
                 fieldCode = dis.readByte();
-                if (fieldCode == 3) { // Campo "positions"
+                if (fieldCode == 3) {
                     int positionsSize = dis.readInt();
                     for (int i = 0; i < positionsSize; i++) {
-                        dis.readInt(); // Leer y descartar las posiciones
+                        dis.readInt();
                     }
                 }
             }

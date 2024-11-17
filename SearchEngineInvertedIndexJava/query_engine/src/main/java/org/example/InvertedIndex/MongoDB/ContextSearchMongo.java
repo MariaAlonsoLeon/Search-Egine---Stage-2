@@ -16,7 +16,7 @@ import java.util.*;
 public class ContextSearchMongo implements SearchCommand {
     private final String word;
     private final int contextSize;
-    private final String documentFolderPath; // Ruta de la carpeta con los archivos de los documentos
+    private final String documentFolderPath;
     private final MongoClient mongoClient;
 
     public ContextSearchMongo(String word, int contextSize, String documentFolderPath) {
@@ -34,7 +34,6 @@ public class ContextSearchMongo implements SearchCommand {
             MongoDatabase database = mongoClient.getDatabase("book_search_engine");
             MongoCollection<Document> collection = database.getCollection("invertedindex");
 
-            // Realizar la consulta para obtener las posiciones de la palabra en cada documento
             Document query = new Document("word", word);
             FindIterable<Document> documents = collection.find(query);
 
@@ -44,7 +43,6 @@ public class ContextSearchMongo implements SearchCommand {
                     List<Integer> positions = (List<Integer>) books.get(bookTitle);
                     List<String> bookContexts = new ArrayList<>();
 
-                    // Leer el archivo de texto completo del libro para obtener el contexto
                     File bookFile = new File(documentFolderPath, bookTitle + ".txt");
                     StringBuilder bookContent = new StringBuilder();
 
@@ -58,8 +56,6 @@ public class ContextSearchMongo implements SearchCommand {
                     String bookText = bookContent.toString().toLowerCase();
                     String[] words = bookText.split("\\W+");
 
-
-                    // Generar el contexto alrededor de cada posiciÃ³n de la palabra
                     for (Integer pos : positions) {
                         int start = Math.max(0, pos - contextSize);
                         int end = Math.min(words.length, pos + contextSize + word.length());
