@@ -85,14 +85,12 @@ public class MultiLineChartForBookCount extends JFrame {
         plot.setRangeGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.GRAY);
 
-        // Customize line and shape renderer
         LineAndShapeRenderer renderer = new LineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.decode("#7cb6f0"));
         renderer.setSeriesPaint(1, Color.decode("#FF9800"));
 
         plot.setRenderer(renderer);
 
-        // Apply Times New Roman font to chart elements
         Font timesNewRoman = new Font("Times New Roman", Font.PLAIN, 14);
         chart.getTitle().setFont(new Font("Times New Roman", Font.BOLD, 16));
         plot.getDomainAxis().setLabelFont(timesNewRoman);

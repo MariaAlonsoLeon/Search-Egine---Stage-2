@@ -30,7 +30,6 @@ public class ScalabilityBenchmarkTest {
     private final String neo4jConnection = "bolt://localhost:7687"; // Conexión a Neo4j
     private final List<String> searchWords = List.of("freedom", "rights", "constitution", "democracy", "law");
 
-    //@Param({"10", "50", "100", "500"})
     @Param({"10"})
     private int bookCount;
 
@@ -85,8 +84,6 @@ public class ScalabilityBenchmarkTest {
         //Map<String, List<String>> result = neo.execute();
         //assert result != null;
     }
-
-    // --------------------------- Métodos Auxiliares -----------------------------------
 
     private String getRandomWord() {
         Random random = new Random();
