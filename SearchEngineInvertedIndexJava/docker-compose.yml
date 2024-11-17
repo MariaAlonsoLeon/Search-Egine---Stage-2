@@ -9,6 +9,19 @@ services:
     networks:
       - app-network
 
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j_container
+    environment:
+      - NEO4J_AUTH=neo4j/unodostres
+    ports:
+      - "7687:7687"
+      - "7474:7474"
+    volumes:
+      - neo4j-data:/data
+    networks:
+      - app-network
+
   crawler:
     build:
       context: ./crawler
@@ -34,11 +47,11 @@ services:
         source: ./datamart
         target: /app/datamart
     environment:
-      - DATATYPE=MongoDB
+      - DATATYPE=NEO4J
     networks:
       - app-network
     depends_on:
-      - mongodb
+      - neo4j
 
   query_engine:
     build:
@@ -72,3 +85,7 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  neo4j-data:
+    driver: local
