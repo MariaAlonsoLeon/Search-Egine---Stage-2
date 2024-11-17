@@ -19,7 +19,7 @@ public class BenchmarkCombined {
 
     @Setup(Level.Iteration)
     public void setup() {
-        String datalakePath = "datalake/20241111"; // Ruta de la carpeta
+        String datalakePath = "datalake/20241111";
         sampleBooks = readDocumentsFromFolder(datalakePath);
     }
 

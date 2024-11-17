@@ -10,7 +10,7 @@ public class SearchByAuthorFile implements SearchMetadataCommand {
     private final String filePath;
 
     public SearchByAuthorFile(String author, String filePath) {
-        this.author = author.toLowerCase(); // Convertir a minúsculas para una búsqueda insensible a mayúsculas
+        this.author = author.toLowerCase();
         this.filePath = filePath;
     }
 
@@ -24,9 +24,7 @@ public class SearchByAuthorFile implements SearchMetadataCommand {
 
             // Leer cada línea del archivo que contiene los metadatos
             while ((line = reader.readLine()) != null) {
-                // Buscar si la línea contiene el autor especificado
                 if (line.toLowerCase().contains("\"author\": \"" + author + "\"")) {
-                    // Extraer el nombre del documento (libro) de los metadatos
                     String documentName = extractDocumentName(line);
                     if (documentName != null) {
                         documentNames.add(documentName);
@@ -42,7 +40,6 @@ public class SearchByAuthorFile implements SearchMetadataCommand {
 
     // Método auxiliar para extraer el nombre del documento de la línea JSON-like
     private String extractDocumentName(String jsonLine) {
-        // Buscar el patrón para el nombre del documento en la línea de metadatos
         String nameKey = "\"documentName\": \"";
         int nameStart = jsonLine.indexOf(nameKey);
 
@@ -53,6 +50,6 @@ public class SearchByAuthorFile implements SearchMetadataCommand {
                 return jsonLine.substring(nameStart, nameEnd);
             }
         }
-        return null; // Si no se encuentra el nombre del documento, retornar null
+        return null;
     }
 }

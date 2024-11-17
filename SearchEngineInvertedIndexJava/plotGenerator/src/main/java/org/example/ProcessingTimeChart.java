@@ -25,27 +25,23 @@ public class ProcessingTimeChart extends JFrame {
     }
 
     public void createChart(double invertedIndexTime, double metadataTime) {
-        // Create dataset with reversed order
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(metadataTime, "Time", "Metadata"); // Add Metadata first
-        dataset.addValue(invertedIndexTime, "Time", "Inverted Index"); // Add Inverted Index second
+        dataset.addValue(metadataTime, "Time", "Metadata");
+        dataset.addValue(invertedIndexTime, "Time", "Inverted Index");
 
-        // Create chart
         chart = ChartFactory.createBarChart(
-                "Processing Time Comparison", // Title
-                "Task",                        // X-axis label
-                "Time (ms)",                   // Y-axis label
-                dataset,                       // Data
+                "Processing Time Comparison",
+                "Task",
+                "Time (ms)",
+                dataset,
                 PlotOrientation.VERTICAL,
-                false,                         // Disable legend
+                false,
                 true,
                 false
         );
 
-        // Customize chart appearance
         customizeChartAppearance();
 
-        // Create panel for the chart
         ChartPanel panel = new ChartPanel(chart);
         panel.setPreferredSize(new Dimension(800, 600));
         setContentPane(panel);
@@ -58,25 +54,20 @@ public class ProcessingTimeChart extends JFrame {
     private void customizeChartAppearance() {
         CategoryPlot plot = chart.getCategoryPlot();
 
-        // Set white background
         plot.setBackgroundPaint(Color.WHITE);
 
-        // Enable and customize gridlines
         plot.setDomainGridlinesVisible(true);
-        plot.setDomainGridlinePaint(Color.GRAY); // Gridline color for X-axis
+        plot.setDomainGridlinePaint(Color.GRAY);
         plot.setRangeGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.GRAY);  // Gridline color for Y-axis
+        plot.setRangeGridlinePaint(Color.GRAY);
 
-        // Customize bar colors: use the same color for all bars
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setSeriesPaint(0, Color.decode("#7cb6f0")); // Matte blue for bars
-        renderer.setShadowVisible(false); // Remove shadows
-        renderer.setBarPainter(new StandardBarPainter()); // Standard bar painter
+        renderer.setSeriesPaint(0, Color.decode("#7cb6f0"));
+        renderer.setShadowVisible(false);
+        renderer.setBarPainter(new StandardBarPainter());
 
-        // Remove bar outlines for a cleaner look
         renderer.setDrawBarOutline(false);
 
-        // Apply Times New Roman font to all chart elements
         Font timesNewRoman = new Font("Times New Roman", Font.PLAIN, 14);
         chart.getTitle().setFont(new Font("Times New Roman", Font.BOLD, 16)); // Title in bold
         plot.getDomainAxis().setLabelFont(timesNewRoman);                    // X-axis label
@@ -94,7 +85,7 @@ public class ProcessingTimeChart extends JFrame {
         SwingUtilities.invokeLater(() -> {
             try {
                 ProcessingTimeChart chart = new ProcessingTimeChart("Processing Time Comparison");
-                chart.createChart(589.89496, 35.70688); // Pass the data here
+                chart.createChart(589.89496, 35.70688);
                 chart.saveChartAsImage("processing_time_chart.png");
             } catch (IOException e) {
                 System.err.println("Error saving the chart: " + e.getMessage());

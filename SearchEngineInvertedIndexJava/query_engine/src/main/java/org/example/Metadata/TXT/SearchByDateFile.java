@@ -10,7 +10,7 @@ public class SearchByDateFile implements SearchMetadataCommand {
     private final String filePath;
 
     public SearchByDateFile(String date, String filePath) {
-        this.date = date; // Se asume que la fecha se recibe en el formato esperado
+        this.date = date;
         this.filePath = filePath;
     }
 
@@ -24,9 +24,7 @@ public class SearchByDateFile implements SearchMetadataCommand {
 
             // Leer cada línea del archivo que contiene los metadatos
             while ((line = reader.readLine()) != null) {
-                // Buscar si la línea contiene la fecha especificada
                 if (line.contains("\"date\": \"" + date + "\"")) {
-                    // Extraer el nombre del documento (libro) de los metadatos
                     String documentName = extractDocumentName(line);
                     if (documentName != null) {
                         documentNames.add(documentName);
@@ -42,7 +40,6 @@ public class SearchByDateFile implements SearchMetadataCommand {
 
     // Método auxiliar para extraer el nombre del documento de la línea JSON-like
     private String extractDocumentName(String jsonLine) {
-        // Buscar el patrón para el nombre del documento en la línea de metadatos
         String nameKey = "\"documentName\": \"";
         int nameStart = jsonLine.indexOf(nameKey);
 
@@ -53,6 +50,6 @@ public class SearchByDateFile implements SearchMetadataCommand {
                 return jsonLine.substring(nameStart, nameEnd);
             }
         }
-        return null; // Si no se encuentra el nombre del documento, retornar null
+        return null;
     }
 }

@@ -36,11 +36,9 @@ public class SearchByLanguageBinaryFile implements SearchMetadataCommand {
                 byte key = dis.readByte();
 
                 if (key == 0) {
-                    // Fin de registro, verificar si el idioma coincide
                     if (currentLanguage != null && currentLanguage.equals(language) && currentDocumentName != null) {
                         documentNames.add(currentDocumentName);
                     }
-                    // Reiniciar para el siguiente registro
                     currentDocumentName = null;
                     currentLanguage = null;
                 } else if (metadataKeys.containsKey(key)) {

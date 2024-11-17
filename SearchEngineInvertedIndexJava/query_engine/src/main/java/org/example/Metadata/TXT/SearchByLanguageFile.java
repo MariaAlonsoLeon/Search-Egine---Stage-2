@@ -10,7 +10,7 @@ public class SearchByLanguageFile implements SearchMetadataCommand {
     private final String filePath;
 
     public SearchByLanguageFile(String language, String filePath) {
-        this.language = language.toLowerCase(); // Convertir a minúsculas para una búsqueda insensible a mayúsculas
+        this.language = language.toLowerCase();
         this.filePath = filePath;
     }
 
@@ -24,9 +24,7 @@ public class SearchByLanguageFile implements SearchMetadataCommand {
 
             // Leer cada línea del archivo que contiene los metadatos
             while ((line = reader.readLine()) != null) {
-                // Buscar si la línea contiene el idioma especificado
                 if (line.toLowerCase().contains("\"language\": \"" + language + "\"")) {
-                    // Extraer el nombre del documento (libro) de los metadatos
                     String documentName = extractDocumentName(line);
                     if (documentName != null) {
                         documentNames.add(documentName);
@@ -42,7 +40,6 @@ public class SearchByLanguageFile implements SearchMetadataCommand {
 
     // Método auxiliar para extraer el nombre del documento de la línea JSON-like
     private String extractDocumentName(String jsonLine) {
-        // Buscar el patrón para el nombre del documento en la línea de metadatos
         String nameKey = "\"documentName\": \"";
         int nameStart = jsonLine.indexOf(nameKey);
 
@@ -53,6 +50,6 @@ public class SearchByLanguageFile implements SearchMetadataCommand {
                 return jsonLine.substring(nameStart, nameEnd);
             }
         }
-        return null; // Si no se encuentra el nombre del documento, retornar null
+        return null;
     }
 }

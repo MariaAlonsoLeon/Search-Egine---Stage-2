@@ -32,7 +32,6 @@ public class FetchMetadataByBookNameMongo implements FetchMetadataCommand {
             Document doc = collection.find(query).first();
 
             if (doc != null) {
-                // Obtener el autor, la fecha y el idioma del documento
                 String author = doc.getString("author");
                 String date = doc.getString("date");
                 String language = doc.getString("language");
