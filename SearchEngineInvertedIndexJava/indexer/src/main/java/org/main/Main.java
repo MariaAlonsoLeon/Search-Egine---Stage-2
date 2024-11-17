@@ -23,10 +23,10 @@ public class Main {
     private static final StoreBinary_II storeBinaryFileII = new StoreBinary_II();
     private static final StoreMongoDB_II store_mongoDB_II = new StoreMongoDB_II();
     private static final StoreNeo4j_II storeNeo4jII = new StoreNeo4j_II();
-    private static final StoreBinary_MD storeBinaryFileMD = new StoreBinary_MD();
-    private static final StoreMongoDB_MD store_mongoDB_MD = new StoreMongoDB_MD();
-    private static final StoreNeo4j_MD storeNeo4jMD = new StoreNeo4j_MD();
-    private static final StoreText_MD storeTextMD = new StoreText_MD();
+    private static final StoreInterface_MD storeBinaryFileMD = new StoreBinary_MD();
+    private static final StoreInterface_MD store_mongoDB_MD = new StoreMongoDB_MD();
+    private static final StoreInterface_MD storeNeo4jMD = new StoreNeo4j_MD();
+    private static final StoreInterface_MD storeTextMD = new StoreText_MD();
 
     public static void main(String[] args) {
         String datatype = System.getenv("DATATYPE");
