@@ -32,7 +32,7 @@ public class TestStoring {
     private StoreText_MD storeText_md = new StoreText_MD();
 
 
-    @Param({"1", "2", "4", "6", "8", "10"}) // Define different matrix sizes for benchmarking
+    @Param({"1", "2", "4", "6", "8", "10"}) 
     private int N;
 
 
