@@ -18,12 +18,6 @@ public class TestProcessing {
     private ProcessInvertedIndex processInvertedIndex = new ProcessInvertedIndex();
     private ProcessMetadata processMetadata = new ProcessMetadata();
 
-    /**
-     * Reads all text files from the specified folder and loads their content into a map.
-     *
-     * @param folderPath Path to the folder containing text files.
-     * @return A map where the keys are file names and the values are file contents.
-     */
     public Map<String, String> loadBooksFromFolder(String folderPath) {
         Map<String, String> documents = new HashMap<>();
         File folder = new File(folderPath);
@@ -46,9 +40,6 @@ public class TestProcessing {
         return documents;
     }
 
-    /**
-     * Measures the average time taken to process inverted index creation and returns the result in milliseconds.
-     */
     public double measureInvertedIndexProcessing(String folderPath, int repetitions) {
         books = loadBooksFromFolder(folderPath);
 
@@ -61,12 +52,9 @@ public class TestProcessing {
             totalTimeInNano += (endTime - startTime);
         }
 
-        return (double) totalTimeInNano / repetitions / 1_000_000; // Convert to milliseconds with decimals
+        return (double) totalTimeInNano / repetitions / 1_000_000; 
     }
 
-    /**
-     * Measures the average time taken to process metadata creation and returns the result in milliseconds.
-     */
     public double measureMetadataProcessing(String folderPath, int repetitions) {
         books = loadBooksFromFolder(folderPath);
 
@@ -79,15 +67,9 @@ public class TestProcessing {
             totalTimeInNano += (endTime - startTime);
         }
 
-        return (double) totalTimeInNano / repetitions / 1_000_000; // Convert to milliseconds with decimals
+        return (double) totalTimeInNano / repetitions / 1_000_000; 
     }
 
-    /**
-     * Saves the results to a JSON file.
-     *
-     * @param results Map containing the results to save.
-     * @param filePath Path to the JSON file.
-     */
     public void saveResultsToJson(Map<String, Double> results, String filePath) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(filePath)) {
