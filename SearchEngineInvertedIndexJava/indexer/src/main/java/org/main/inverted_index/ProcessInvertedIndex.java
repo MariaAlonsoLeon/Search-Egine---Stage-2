@@ -12,7 +12,7 @@ public class ProcessInvertedIndex {
                 STOPWORDS.add(line.trim().toLowerCase());
             }
         } catch (IOException e) {
-            System.err.println("Error al leer el archivo de stopwords: " + e.getMessage());
+            System.err.println("Error reading the stopwords: " + e.getMessage());
         }
     }
 

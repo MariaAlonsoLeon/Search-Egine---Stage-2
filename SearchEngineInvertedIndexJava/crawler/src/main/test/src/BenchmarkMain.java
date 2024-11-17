@@ -16,7 +16,7 @@ public class BenchmarkMain {
     private static void runDownloaderBenchmarks() throws RunnerException {
         System.out.println("Running benchmarks for downloader...");
 
-        /*Options downloaderOptions = new OptionsBuilder()
+        Options downloaderOptions = new OptionsBuilder()
                 .include(DownloaderBenchmark.class.getSimpleName())
                 .warmupIterations(3)
                 .measurementIterations(5)
@@ -25,7 +25,7 @@ public class BenchmarkMain {
                 .resultFormat(ResultFormatType.JSON)
                 .build();
 
-        new Runner(downloaderOptions).run();*/
+        new Runner(downloaderOptions).run();
     }
 
     private static void runDocumentStoreBenchmarks() throws RunnerException {

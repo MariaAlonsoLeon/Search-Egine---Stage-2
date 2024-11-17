@@ -29,12 +29,12 @@ public class GutenbergDocumentDownloader implements DocumentDownloader {
                 String documentText = response.body();
                 return Jsoup.parse(documentText); 
             } else {
-                throw new HttpStatusException("Error en la descarga", response.statusCode(), bookUrl);
+                throw new HttpStatusException("Error downloading", response.statusCode(), bookUrl);
             }
         } catch (InterruptedException e) {
             System.err.println("Request interrupted: " + e.getMessage());
             Thread.currentThread().interrupt();
-            throw new IOException("Error en la descarga", e);
+            throw new IOException("Error downloading", e);
         }
     }
 }
