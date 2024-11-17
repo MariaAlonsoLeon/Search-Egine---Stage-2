@@ -23,12 +23,6 @@ public class BenchmarkCombined {
         sampleBooks = readDocumentsFromFolder(datalakePath);
     }
 
-    /**
-     * Lee todos los archivos .txt de una carpeta y los guarda en un mapa.
-     *
-     * @param folderPath Ruta de la carpeta donde están los archivos .txt.
-     * @return Un mapa donde la clave es el nombre del archivo y el valor su contenido.
-     */
     private Map<String, String> readDocumentsFromFolder(String folderPath) {
         Map<String, String> documents = new HashMap<>();
         try {

@@ -69,11 +69,11 @@ public class ProcessingTimeChart extends JFrame {
         renderer.setDrawBarOutline(false);
 
         Font timesNewRoman = new Font("Times New Roman", Font.PLAIN, 14);
-        chart.getTitle().setFont(new Font("Times New Roman", Font.BOLD, 16)); // Title in bold
-        plot.getDomainAxis().setLabelFont(timesNewRoman);                    // X-axis label
-        plot.getRangeAxis().setLabelFont(timesNewRoman);                     // Y-axis label
-        plot.getDomainAxis().setTickLabelFont(timesNewRoman);                // X-axis tick labels
-        plot.getRangeAxis().setTickLabelFont(timesNewRoman);                 // Y-axis tick labels
+        chart.getTitle().setFont(new Font("Times New Roman", Font.BOLD, 16));
+        plot.getDomainAxis().setLabelFont(timesNewRoman);
+        plot.getRangeAxis().setLabelFont(timesNewRoman);
+        plot.getDomainAxis().setTickLabelFont(timesNewRoman);
+        plot.getRangeAxis().setTickLabelFont(timesNewRoman);
     }
 
     public void saveChartAsImage(String outputPath) throws IOException {
