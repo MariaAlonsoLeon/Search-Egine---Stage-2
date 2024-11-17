@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class StoreMongoDB_MD implements StoreInterface_MD {
-    private final static MongoClient mongoClient = new MongoClient("localhost", 27017);
+    private final static MongoClient mongoClient = new MongoClient("mongodb", 27017);
     private final static MongoDatabase database = mongoClient.getDatabase("book_search_engine");
     private static MongoCollection<Document> collection = null;
 

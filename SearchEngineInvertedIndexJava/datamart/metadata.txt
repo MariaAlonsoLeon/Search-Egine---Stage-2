@@ -6,3 +6,87 @@
 {"documentName": "20241116/book_3", "date": "1973-11-01", "author": "John F. Kennedy", "language": "English"}
 {"documentName": "20241116/book_4", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
 {"documentName": "20241116/book_5", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_15", "date": "1991-05-01", "author": "Herman Melville", "language": "English"}
+{"documentName": "20241117/book_15", "date": "1991-05-01", "author": "Herman Melville", "language": "English"}
+{"documentName": "20241117/book_41", "date": "2008-06-27", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_41", "date": "2008-06-27", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_48", "date": "1991-08-01", "author": "Alexander Hamilton", "language": "English"}
+{"documentName": "20241117/book_48", "date": "1991-08-01", "author": "Alexander Hamilton", "language": "English"}
+{"documentName": "20241117/book_35", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_35", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_4", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_4", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_19", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_59", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_19", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_31", "date": "1971-12-01", "author": "Thomas Jefferson", "language": "English"}
+{"documentName": "20241117/book_5", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_59", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_11", "date": "2008-06-27", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_31", "date": "1971-12-01", "author": "Thomas Jefferson", "language": "English"}
+{"documentName": "20241117/book_23", "date": "1978-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_5", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_49", "date": "2004-06-01", "author": "Henry Wadsworth Longfellow", "language": "English"}
+{"documentName": "20241117/book_32", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_11", "date": "2008-06-27", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_6", "date": "1976-12-01", "author": "Patrick Henry", "language": "English"}
+{"documentName": "20241117/book_23", "date": "1978-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_2", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_28", "date": "1973-11-01", "author": "John F. Kennedy", "language": "English"}
+{"documentName": "20241117/book_58", "date": "1978-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_49", "date": "2004-06-01", "author": "Henry Wadsworth Longfellow", "language": "English"}
+{"documentName": "20241117/book_32", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_6", "date": "1976-12-01", "author": "Patrick Henry", "language": "English"}
+{"documentName": "20241117/book_18", "date": "1973-11-01", "author": "John F. Kennedy", "language": "English"}
+{"documentName": "20241117/book_2", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_28", "date": "1973-11-01", "author": "John F. Kennedy", "language": "English"}
+{"documentName": "20241117/book_30", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_58", "date": "1978-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_21", "date": "1976-12-01", "author": "Patrick Henry", "language": "English"}
+{"documentName": "20241117/book_18", "date": "1973-11-01", "author": "John F. Kennedy", "language": "English"}
+{"documentName": "20241117/book_57", "date": "1977-12-01", "author": "Not found", "language": "English"}
+{"documentName": "20241117/book_30", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_42", "date": "2008-06-25", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_21", "date": "1976-12-01", "author": "Patrick Henry", "language": "English"}
+{"documentName": "20241117/book_38", "date": "1978-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_57", "date": "1977-12-01", "author": "Not found", "language": "English"}
+{"documentName": "20241117/book_42", "date": "2008-06-25", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_38", "date": "1978-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_45", "date": "1991-05-01", "author": "Herman Melville", "language": "English"}
+{"documentName": "20241117/book_56", "date": "1976-12-01", "author": "Patrick Henry", "language": "English"}
+{"documentName": "20241117/book_45", "date": "1991-05-01", "author": "Herman Melville", "language": "English"}
+{"documentName": "20241117/book_56", "date": "1976-12-01", "author": "Patrick Henry", "language": "English"}
+{"documentName": "20241117/book_50", "date": "1991-10-01", "author": "John Milton", "language": "English"}
+{"documentName": "20241117/book_29", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_50", "date": "1991-10-01", "author": "John Milton", "language": "English"}
+{"documentName": "20241117/book_29", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_25", "date": "1989-08-01", "author": "Not found", "language": "English"}
+{"documentName": "20241117/book_25", "date": "1989-08-01", "author": "Not found", "language": "English"}
+{"documentName": "20241117/book_7", "date": "1977-12-01", "author": "Not found", "language": "English"}
+{"documentName": "20241117/book_39", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_7", "date": "1977-12-01", "author": "Not found", "language": "English"}
+{"documentName": "20241117/book_39", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_26", "date": "1971-12-01", "author": "Thomas Jefferson", "language": "English"}
+{"documentName": "20241117/book_26", "date": "1971-12-01", "author": "Thomas Jefferson", "language": "English"}
+{"documentName": "20241117/book_33", "date": "1973-11-01", "author": "John F. Kennedy", "language": "English"}
+{"documentName": "20241117/book_33", "date": "1973-11-01", "author": "John F. Kennedy", "language": "English"}
+{"documentName": "20241117/book_34", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_34", "date": "1973-11-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_9", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_9", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_17", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_17", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_43", "date": "2008-06-25", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_43", "date": "2008-06-25", "author": "Lewis Carroll", "language": "English"}
+{"documentName": "20241117/book_55", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_55", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_20", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_20", "date": "1975-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_27", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_27", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_52", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_52", "date": "1972-12-01", "author": "United States", "language": "English"}
+{"documentName": "20241117/book_24", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_24", "date": "1979-12-01", "author": "Abraham Lincoln", "language": "English"}
+{"documentName": "20241117/book_10", "date": "1989-08-01", "author": "Not found", "language": "English"}
+{"documentName": "20241117/book_10", "date": "1989-08-01", "author": "Not found", "language": "English"}
