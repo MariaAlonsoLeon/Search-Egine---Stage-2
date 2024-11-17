@@ -38,9 +38,9 @@ public class BarChartCrawlerDownloads extends JFrame {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (Map<String, Object> benchmark : benchmarks) {
             Map<String, String> params = (Map<String, String>) benchmark.get("params");
-            String number = params.get("id"); // X-axis value
+            String number = params.get("id");
             Map<String, Object> primaryMetric = (Map<String, Object>) benchmark.get("primaryMetric");
-            double score = (double) primaryMetric.get("score"); // Y-axis value
+            double score = (double) primaryMetric.get("score");
             System.out.println(score);
             dataset.addValue(score, "Score", number);
         }
