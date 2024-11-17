@@ -16,6 +16,7 @@ The system efficiently performs document crawling, indexing, and querying, makin
 - **Document Crawling:** Downloads and stores documents from Project Gutenberg into a datalake for further processing.
 - **Data Indexing:** Processes documents and creates an inverted index, as well as a metadata structure that enables fast term retrieval.
 - **Query Engine:** Allows users to perform searches on the indexed documents, supporting queries based on words and metadata.
+- **UI**: Offers an intuitive interface for querying documents and visualizing results, communicating with the Query Engine via a REST API.
 - **Data Visualization:** Scripts provide visual representations of the data, including word frequency and indexing metrics.
 
 ## Project Structure:
@@ -25,11 +26,9 @@ The project is organized into independent modules, ensuring modular and scalable
 - **Datalake:** Repository for raw, unprocessed data.
 - **Datamart:** Contains processed data, including the inverted index and metadata, for optimized querying.
 - **Indexer:** Manages document indexing using multiple data structures for the inverted index to test and evaluate performance and scalability.
-- **Query Engine:** Provides core functionality for querying indexed documents.
-- **API:** Manages API interactions and endpoints for document and query handling.
+- **Query Engine:** Provides core functionality for querying indexed documents. It also manages API interactions and endpoints for document and query handling.
 - **UI (User Interface):** A React-based, user-friendly interface for interacting with the search engine.
-- **Benchmarking and Tests:** Utilizes JMH (Java Microbenchmarking Harness) for performance benchmarking, providing insights into execution time, scalability, and other metrics, comparing results with the original Python version.
-- **Graphs:** Generates visualizations to analyze indexing and querying performance.
+- **Plot Generator:** Generates visualizations to analyze indexing and querying performance.
 
 ## Development Environment:
 - **IDE:** IntelliJ IDEA.
@@ -54,20 +53,25 @@ ENTRYPOINT ["java", "-jar", "crawler.jar"]
 2. Install Dependencies: Use Maven to install dependencies in the main directory
 
 ````bash
-mvn clean install
+mvn clean package -DskipTests
 ````
-
 3. Build and Start Docker Containers: Navigate to the project’s root directory and run:
 
 ````bash
-docker-compose up --build
+docker compose down
 ````
 
+````bash
+docker compose build
+````
+````bash
+docker compose up
+````
 
-4. Running Modules: Each module runs automatically within its Docker container. Use tools like Postman or cURL to interact with the API.
+4. Running Modules: Each module runs automatically within its Docker container. Use tools like Postman or cURL to interact with the API. In docker all modules are connected. We created volumes for storing book data and processed indexes and metadata. Individual modules have specific access to them. Additionally, when docker is launched, all necessary packages are downloaded and the application starts working.
 
 ## SOLID Principles and Design Patterns
-The project follows the five SOLID principles for maintainability and scalability, using well-known architectures like MVC and design patterns such as Factory Method to ensure the system is extensible and robust.
+The project follows the five SOLID principles for maintainability and scalability, using design patterns such as the Factory Method to ensure the system is extensible and robust.
 
 - **Single Responsibility Principle (SRP):** Each class and module in the project has a single, well-defined responsibility. For instance, the `Crawler` module is solely responsible for downloading and storing documents, while the `Indexer` is dedicated to indexing them, making the code easier to maintain and test.
 
@@ -80,8 +84,6 @@ The project follows the five SOLID principles for maintainability and scalabilit
 - **Dependency Inversion Principle (DIP):** High-level modules do not depend on low-level modules; both depend on abstractions. For example, the `Query Engine` interacts with the `Indexer` through interfaces, making it possible to change the underlying data structure or indexing mechanism without modifying the query logic.
 
 ## Testing:
-
-- **Unit Tests and Benchmarks**: The tests directory includes unit tests for individual components, such as the crawler, indexer, and query engine.
 - **Benchmarking with JMH**: Benchmarks are conducted with JMH, comparing the Java implementation with the original Python version in terms of execution time, memory consumption, and scalability.
 
 ## Additional Highlights:
