@@ -47,11 +47,12 @@ services:
         source: ./datamart
         target: /app/datamart
     environment:
-      - DATATYPE=NEO4J
+      - DATATYPE=MongoDB
     networks:
       - app-network
     depends_on:
       - neo4j
+      - mongodb
 
   query_engine:
     build:
@@ -69,6 +70,9 @@ services:
         target: /app/datamart
     networks:
       - app-network
+    depends_on:
+      - neo4j
+      - mongodb
 
   ui:
     build:

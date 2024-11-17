@@ -16,7 +16,7 @@ public class FetchMetadataByBookNameMongo implements FetchMetadataCommand {
 
     public FetchMetadataByBookNameMongo(String bookName) {
         this.bookName = bookName;
-        this.mongoClient = MongoClients.create("mongodb://localhost:27017");
+        this.mongoClient = MongoClients.create("mongodb://mongodb:27017");
     }
 
     @Override

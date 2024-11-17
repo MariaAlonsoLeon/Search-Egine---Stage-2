@@ -19,7 +19,7 @@ public class SingleWordSearchMongoDB implements SearchCommand {
 
     public SingleWordSearchMongoDB(String word) {
         this.word = word;
-        this.mongoClient = MongoClients.create("mongodb://localhost:27017");
+        this.mongoClient = MongoClients.create("mongodb://mongodb:27017");
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FetchMetadataByBookNameNeo4j implements FetchMetadataCommand {
-    private static final String URI = "neo4j://localhost:7687";
+    private static final String URI = "neo4j://neo4j:7687";
     private static final String USER = "neo4j";
     private static final String PASSWORD = "unodostres";
     private static final Driver driver = GraphDatabase.driver(URI, AuthTokens.basic(USER, PASSWORD));

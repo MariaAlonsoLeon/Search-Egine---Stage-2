@@ -17,7 +17,7 @@ public class SearchByAuthorMongo implements SearchMetadataCommand {
 
     public SearchByAuthorMongo(String author) {
         this.author = author;
-        this.mongoClient = MongoClients.create("mongodb://localhost:27017");
+        this.mongoClient = MongoClients.create("mongodb://mongodb:27017");
     }
 
     @Override

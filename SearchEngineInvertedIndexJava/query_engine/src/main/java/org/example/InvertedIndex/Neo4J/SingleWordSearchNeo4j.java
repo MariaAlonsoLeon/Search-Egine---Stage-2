@@ -16,7 +16,7 @@ public class SingleWordSearchNeo4j implements SearchCommand {
 
     public SingleWordSearchNeo4j(String word) {
         this.word = word;
-        this.neo4jDriver = GraphDatabase.driver("neo4j://localhost:7687", AuthTokens.basic("neo4j", "unodostres"));
+        this.neo4jDriver = GraphDatabase.driver("neo4j://neo4j:7687", AuthTokens.basic("neo4j", "unodostres"));
     }
 
     @Override

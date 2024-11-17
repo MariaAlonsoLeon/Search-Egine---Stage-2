@@ -17,7 +17,7 @@ public class SearchByDateMongo implements SearchMetadataCommand {
 
     public SearchByDateMongo(String date) {
         this.date = date;
-        this.mongoClient = MongoClients.create("mongodb://localhost:27017");
+        this.mongoClient = MongoClients.create("mongodb://mongodb:27017");
     }
 
     @Override

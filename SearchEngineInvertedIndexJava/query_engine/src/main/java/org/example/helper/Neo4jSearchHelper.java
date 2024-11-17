@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Neo4jSearchHelper implements SearchHelper {
-    private static Driver driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "unodostres"));
+    private static Driver driver = GraphDatabase.driver("bolt://neo4j:7687", AuthTokens.basic("neo4j", "unodostres"));
 
     @Override
     public Map<String, List<String>> searchSingleWordII(String word) {
