@@ -19,10 +19,10 @@ public class Main {
     private static String currentDate;
     private static final ProcessMetadata process_metadata = new ProcessMetadata();
     private static final ProcessInvertedIndex process_inverted_index = new ProcessInvertedIndex();
-    private static final StoreText_II storeTextII = new StoreText_II();
-    private static final StoreBinary_II storeBinaryFileII = new StoreBinary_II();
-    private static final StoreMongoDB_II store_mongoDB_II = new StoreMongoDB_II();
-    private static final StoreNeo4j_II storeNeo4jII = new StoreNeo4j_II();
+    private static final StoreInterface_II storeTextII = new StoreText_II();
+    private static final StoreInterface_II storeBinaryFileII = new StoreBinary_II();
+    private static final StoreInterface_II store_mongoDB_II = new StoreMongoDB_II();
+    private static final StoreInterface_II storeNeo4jII = new StoreNeo4j_II();
     private static final StoreInterface_MD storeBinaryFileMD = new StoreBinary_MD();
     private static final StoreInterface_MD store_mongoDB_MD = new StoreMongoDB_MD();
     private static final StoreInterface_MD storeNeo4jMD = new StoreNeo4j_MD();
