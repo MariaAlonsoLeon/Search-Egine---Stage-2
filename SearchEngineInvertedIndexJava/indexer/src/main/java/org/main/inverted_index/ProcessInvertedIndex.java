@@ -4,11 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class ProcessInvertedIndex {
-
-    // Variable estática que contendrá las stopwords
     private static Set<String> STOPWORDS = new HashSet<>();
-
-    // Método para cargar las stopwords desde un archivo
     private static void loadStopwords(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -21,7 +17,6 @@ public class ProcessInvertedIndex {
     }
 
     public static Map<String, Map<String, List<Integer>>> createInvertedIndex(Map<String, String> book, String stopwordsFilePath) {
-        // Cargar las stopwords desde el archivo especificado
         loadStopwords(stopwordsFilePath);
 
         Map<String, Map<String, List<Integer>>> invertedIndex = new HashMap<>();
@@ -34,8 +29,7 @@ public class ProcessInvertedIndex {
 
             for (int i = 0; i < words.length; i++) {
                 String word = words[i].toLowerCase();
-
-                // Ignorar las stopwords
+                
                 if (!word.isEmpty() && !STOPWORDS.contains(word)) {
                     invertedIndex
                             .computeIfAbsent(word, k -> new HashMap<>())
@@ -63,8 +57,6 @@ public class ProcessInvertedIndex {
     }
 
     public static void main(String[] args) {
-        // Puedes llamar al método 'createInvertedIndex' pasando el libro (como Map) y la ruta del archivo de stopwords
-        // Ejemplo de uso:
         Map<String, String> books = new HashMap<>();
         books.put("path/to/book1.txt", "This is a sample content with some stopwords like and, the, or.");
         books.put("path/to/book2.txt", "Another book with different words, avoiding stopwords.");
