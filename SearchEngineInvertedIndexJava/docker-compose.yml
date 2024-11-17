@@ -1,15 +1,15 @@
 version: '3.7'
 
 services:
-  #crawler:
-  #  build:
-  #    context: ./crawler
-  #    dockerfile: Dockerfile
-  #  container_name: crawler_container
-  #  volumes:
-  #    - ./datalake:/app/datalake
-  #  networks:
-  #    - app-network
+  crawler:
+    build:
+      context: ./crawler
+      dockerfile: Dockerfile
+    container_name: crawler_container
+    volumes:
+      - ./datalake:/app/datalake
+    networks:
+      - app-network
 
   indexer:
     build:
